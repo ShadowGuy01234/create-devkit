@@ -51,6 +51,12 @@ npx create-devkit my-app --template mern --lang ts
 - `angular-node` defaults to `ts` and currently only supports `ts`.
 - `--lang` also accepts `javascript` and `typescript` aliases.
 
+## Acknowledgements
+
+React frontend templates in this project are based on
+[create-vite](https://github.com/vitejs/vite/tree/main/packages/create-vite),
+MIT licensed. Copyright (c) 2019-present Yuxi (Evan) You and Vite contributors.
+
 ## License
 
 MIT
