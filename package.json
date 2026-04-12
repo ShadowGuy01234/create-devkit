@@ -1,0 +1,33 @@
+{
+  "name": "create-devkit",
+  "version": "0.1.0",
+  "description": "Scaffold full-stack projects interactively via npx",
+  "type": "module",
+  "bin": {
+    "create-devkit": "bin/index.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "templates"
+  ],
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "keywords": [
+    "cli",
+    "scaffold",
+    "template",
+    "mern",
+    "fastapi",
+    "react"
+  ],
+  "license": "MIT",
+  "dependencies": {
+    "chalk": "^5.6.2",
+    "commander": "^12.1.0",
+    "fs-extra": "^11.3.4",
+    "inquirer": "^10.2.2",
+    "ora": "^8.2.0"
+  }
+}
