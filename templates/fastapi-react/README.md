@@ -12,15 +12,23 @@ A full-stack application with FastAPI backend and React frontend.
 ## Getting Started
 
 ```bash
-# Frontend
-cd frontend && npm install && npm run dev
+cd {{PROJECT_NAME}}
 
-# Backend
-cd backend
-python -m venv venv
-source venv/bin/activate   # Windows: venv\Scripts\activate
-pip install -r requirements.txt
-uvicorn main:app --reload --port 8000
+# Recommended: create and activate backend virtual environment
+python -m venv backend/venv
+source backend/venv/bin/activate   # Windows: backend\venv\Scripts\activate
+
+# Install root tooling
+npm install
+
+# Install frontend deps + backend Python deps
+npm run setup
+
+# Copy environment variables
+cp backend/.env.example backend/.env
+
+# Run frontend and backend together
+npm run dev
 ```
 
 ## Environment Variables

@@ -22,9 +22,10 @@ export const TEMPLATES = {
       ts: path.join(TEMPLATES_DIR, "mern-ts"),
     },
     postSteps: [
-      "cd client && npm install",
-      "cd ../server && npm install",
+      "npm install",
+      "npm run setup",
       "cp server/.env.example server/.env",
+      "npm run dev",
     ],
   },
   "fastapi-react": {
@@ -35,8 +36,12 @@ export const TEMPLATES = {
       ts: path.join(TEMPLATES_DIR, "fastapi-react-ts"),
     },
     postSteps: [
-      "cd frontend && npm install",
-      "cd ../backend && python -m venv venv && pip install -r requirements.txt",
+      "python -m venv backend/venv",
+      "source backend/venv/bin/activate  # Windows: backend\\venv\\Scripts\\activate",
+      "npm install",
+      "npm run setup",
+      "cp backend/.env.example backend/.env",
+      "npm run dev",
     ],
   },
   "nextjs-prisma": {
@@ -53,7 +58,7 @@ export const TEMPLATES = {
     variants: {
       ts: path.join(TEMPLATES_DIR, "angular-node"),
     },
-    postSteps: ["cd frontend && npm install", "cd ../server && npm install"],
+    postSteps: ["npm install", "npm run setup", "npm run dev"],
   },
 };
 

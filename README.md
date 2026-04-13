@@ -111,6 +111,10 @@ Next.js template in this project is based on
 [create-next-app](https://github.com/vercel/next.js/tree/canary/packages/create-next-app),
 MIT licensed. Copyright (c) 2024 Vercel, Inc.
 
+Concurrent dev orchestration in split-stack templates uses
+[concurrently](https://github.com/open-cli-tools/concurrently),
+MIT licensed.
+
 ## License
 
 MIT

@@ -12,9 +12,14 @@ An Angular frontend with a Node.js/Express backend.
 ## Getting Started
 
 ```bash
-# Frontend
-cd frontend && npm install && npm start
+cd {{PROJECT_NAME}}
 
-# Backend
-cd server && npm install && npm run dev
+# Install root tooling
+npm install
+
+# Install frontend + server dependencies
+npm run setup
+
+# Run frontend and backend together
+npm run dev
 ```

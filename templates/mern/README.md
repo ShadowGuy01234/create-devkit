@@ -12,21 +12,19 @@ A full-stack MERN application (MongoDB, Express, React, Node.js).
 ## Getting Started
 
 ```bash
-# Install client dependencies
-cd client && npm install
+cd {{PROJECT_NAME}}
 
-# Install server dependencies
-cd ../server && npm install
+# Install root tooling
+npm install
+
+# Install client + server dependencies
+npm run setup
 
 # Copy environment variables
 cp server/.env.example server/.env
 
-# Run both in development
-# Terminal 1:
-cd client && npm run dev
-
-# Terminal 2:
-cd server && npm run dev
+# Run frontend and backend together
+npm run dev
 ```
 
 ## Environment Variables

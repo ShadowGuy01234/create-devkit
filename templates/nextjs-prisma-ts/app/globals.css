@@ -1,8 +1,8 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fff9ef;
+  --foreground: #2f1d12;
 }
 
 @theme inline {
@@ -14,13 +14,153 @@
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: #1f1611;
+    --foreground: #f8ede0;
   }
 }
 
 body {
+  margin: 0;
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-geist-sans), "Segoe UI", sans-serif;
+}
+
+.prisma-shell {
+  width: min(1100px, 100%);
+  margin: 0 auto;
+  padding: clamp(1.2rem, 2.6vw, 2.4rem);
+  display: grid;
+  gap: 1rem;
+}
+
+.prisma-hero {
+  border-radius: 1.1rem;
+  border: 1px solid rgba(183, 121, 62, 0.45);
+  background: linear-gradient(125deg, rgba(255, 236, 207, 0.95), rgba(252, 230, 201, 0.78));
+  padding: clamp(1.1rem, 2.5vw, 2rem);
+  box-shadow: 0 14px 35px rgba(126, 76, 24, 0.14);
+  animation: drop 620ms ease-out;
+}
+
+.prisma-kicker {
+  margin: 0;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: #8a4f1e;
+  font-size: 0.72rem;
+  font-weight: 700;
+}
+
+.prisma-hero h1 {
+  margin: 0.55rem 0 0.75rem;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1;
+}
+
+.prisma-hero p {
+  margin: 0;
+  max-width: 64ch;
+  color: #563723;
+}
+
+.prisma-grid {
+  display: grid;
+  gap: 0.9rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.prisma-card {
+  border-radius: 1rem;
+  border: 1px solid rgba(190, 132, 80, 0.35);
+  background: rgba(255, 246, 233, 0.88);
+  padding: 1rem;
+}
+
+.prisma-card h2 {
+  margin: 0;
+  font-size: 1.04rem;
+}
+
+.prisma-card p {
+  margin: 0.5rem 0 0.8rem;
+  color: #63452f;
+}
+
+.prisma-card code {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  border: 1px solid rgba(190, 132, 80, 0.45);
+  background: rgba(255, 222, 186, 0.38);
+  border-radius: 0.5rem;
+  padding: 0.33rem 0.48rem;
+  display: inline-block;
+}
+
+.prisma-card-accent {
+  background: linear-gradient(165deg, rgba(255, 233, 209, 0.9), rgba(253, 217, 176, 0.62));
+}
+
+.prisma-runbook {
+  border-radius: 1rem;
+  border: 1px solid rgba(190, 132, 80, 0.35);
+  background: rgba(255, 249, 240, 0.92);
+  padding: 1rem;
+}
+
+.prisma-runbook h2 {
+  margin: 0 0 0.7rem;
+  font-size: 1.08rem;
+}
+
+.prisma-runbook ol {
+  margin: 0;
+  padding-left: 1.15rem;
+  display: grid;
+  gap: 0.55rem;
+}
+
+.prisma-runbook code {
+  font-family: var(--font-geist-mono), ui-monospace, SFMono-Regular, Menlo, monospace;
+  border-radius: 0.5rem;
+  border: 1px solid rgba(190, 132, 80, 0.4);
+  background: rgba(255, 224, 191, 0.3);
+  padding: 0.32rem 0.5rem;
+}
+
+.prisma-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+}
+
+.prisma-links a {
+  text-decoration: none;
+  color: #5f3f29;
+  border: 1px solid rgba(190, 132, 80, 0.45);
+  border-radius: 999px;
+  background: rgba(255, 244, 230, 0.82);
+  padding: 0.46rem 0.9rem;
+  transition: transform 180ms ease, border-color 180ms ease;
+}
+
+.prisma-links a:hover {
+  transform: translateY(-2px);
+  border-color: #9e612f;
+}
+
+@keyframes drop {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 860px) {
+  .prisma-grid {
+    grid-template-columns: 1fr;
+  }
 }
