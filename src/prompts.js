@@ -62,7 +62,6 @@ export async function runWizard({
         { name: "FastAPI + React", value: "fastapi-react" },
         { name: "Next.js + Prisma", value: "nextjs-prisma" },
         { name: "Angular + Node.js", value: "angular-node" },
-        { name: "SvelteKit", value: "sveltekit" },
       ],
     },
     {

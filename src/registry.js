@@ -41,9 +41,8 @@ export const TEMPLATES = {
   },
   "nextjs-prisma": {
     label: "Next.js + Prisma",
-    defaultLanguage: "js",
+    defaultLanguage: "ts",
     variants: {
-      js: path.join(TEMPLATES_DIR, "nextjs-prisma"),
       ts: path.join(TEMPLATES_DIR, "nextjs-prisma-ts"),
     },
     postSteps: ["npm install", "npx prisma generate", "cp .env.example .env"],
@@ -55,15 +54,6 @@ export const TEMPLATES = {
       ts: path.join(TEMPLATES_DIR, "angular-node"),
     },
     postSteps: ["cd frontend && npm install", "cd ../server && npm install"],
-  },
-  sveltekit: {
-    label: "SvelteKit",
-    defaultLanguage: "js",
-    variants: {
-      js: path.join(TEMPLATES_DIR, "sveltekit"),
-      ts: path.join(TEMPLATES_DIR, "sveltekit-ts"),
-    },
-    postSteps: ["npm install"],
   },
 };
 

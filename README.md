@@ -1,22 +1,32 @@
 # create-devkit
 
-Scaffold full-stack projects interactively via `npx`.
+Scaffold full-stack starter projects in seconds via `npx`.
 
-```bash
-npx create-devkit
-```
+`create-devkit` generates opinionated, ready-to-run project structures for popular frontend and full-stack combinations, with optional language variants and post-setup guidance.
 
-## Available Stacks
+## Why create-devkit
 
-| Stack                 | Description                             | Language variants |
-| --------------------- | --------------------------------------- | ----------------- |
-| **MERN**              | MongoDB · Express · React · Node        | `js`, `ts`        |
-| **FastAPI + React**   | Python FastAPI backend + React frontend | `js`, `ts`        |
-| **Next.js + Prisma**  | Next.js with Prisma ORM and SQLite      | `js`, `ts`        |
-| **Angular + Node.js** | Angular frontend + Express backend      | `ts`              |
-| **SvelteKit**         | SvelteKit application                   | `js`, `ts`        |
+- Interactive onboarding for new projects with sensible defaults.
+- Non-interactive flags for automation and quick bootstrap workflows.
+- Multiple stack templates with consistent token replacement and `.gitignore` handling.
+- Optional git initialization and dependency installation prompts.
 
-## Usage
+## Stack Support
+
+| Stack             | Description                             | Language variants |
+| ----------------- | --------------------------------------- | ----------------- |
+| MERN              | MongoDB + Express + React + Node        | `js`, `ts`        |
+| FastAPI + React   | Python FastAPI backend + React frontend | `js`, `ts`        |
+| Next.js + Prisma  | Next.js App Router + Prisma             | `ts`              |
+| Angular + Node.js | Angular frontend + Express backend      | `ts`              |
+
+### Language defaults
+
+- `mern` and `fastapi-react` default to `js`.
+- `angular-node` and `nextjs-prisma` default to `ts`.
+- `--lang` accepts `js`, `ts`, `javascript`, and `typescript`.
+
+## Quick Start
 
 ### Interactive mode
 
@@ -24,32 +34,72 @@ npx create-devkit
 npx create-devkit
 ```
 
-### Quick mode
-
-```bash
-npx create-devkit my-app --template mern
-```
-
-### Quick mode with language
+### Non-interactive mode
 
 ```bash
 npx create-devkit my-app --template mern --lang ts
 ```
 
-### CLI Flags
+## CLI Usage
 
-| Flag                    | Description                               |
-| ----------------------- | ----------------------------------------- |
-| `-t, --template <name>` | Skip the menu and use a template directly |
-| `-l, --lang <language>` | Select language variant: `js` or `ts`     |
-| `--no-git`              | Skip git initialisation                   |
-| `--no-install`          | Skip the npm install prompt               |
+```bash
+create-devkit [project-name] [options]
+```
 
-## Language Defaults
+| Option                  | Description                                        |
+| ----------------------- | -------------------------------------------------- |
+| `-t, --template <name>` | Skip the template menu and use a template directly |
+| `-l, --lang <language>` | Choose template language variant (`js` or `ts`)    |
+| `--no-git`              | Skip git initialization                            |
+| `--no-install`          | Skip npm install prompt                            |
+| `-V, --version`         | Print CLI version                                  |
+| `-h, --help`            | Show help                                          |
 
-- `mern`, `fastapi-react`, `nextjs-prisma`, and `sveltekit` default to `js`.
-- `angular-node` defaults to `ts` and currently only supports `ts`.
-- `--lang` also accepts `javascript` and `typescript` aliases.
+## Common Examples
+
+```bash
+# MERN (default: js)
+npx create-devkit my-mern --template mern
+
+# MERN TypeScript
+npx create-devkit my-mern-ts --template mern --lang ts
+
+# FastAPI + React TypeScript frontend
+npx create-devkit my-fastapi --template fastapi-react --lang ts
+
+# Next.js + Prisma (TS-only)
+npx create-devkit my-next --template nextjs-prisma
+
+# Skip git and install prompts (CI/script friendly)
+npx create-devkit my-app --template mern --no-git --no-install
+```
+
+## What create-devkit handles
+
+- Copies template files into your target directory.
+- Replaces `{{PROJECT_NAME}}` tokens in template metadata files.
+- Renames template `_gitignore` files to `.gitignore` in scaffolded output.
+- Optionally initializes git and optionally runs dependency installation.
+
+## Requirements
+
+- Node.js `>=18.0.0`
+- npm `>=9` recommended
+
+## Local Development
+
+```bash
+git clone <your-repo-url>
+cd create-devkit
+npm install
+node bin/index.js --help
+```
+
+## Publishing Checklist
+
+- Confirm `npm publish --dry-run` succeeds.
+- Ensure template folders contain no `node_modules`, lockfiles, or build artifacts.
+- Ensure template `_gitignore` files are present in the package and scaffold to `.gitignore`.
 
 ## Acknowledgements
 
