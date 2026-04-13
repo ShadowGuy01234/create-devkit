@@ -1,12 +1,12 @@
-import './App.css'
+import "./App.css";
 
 function App() {
   const launchSteps = [
-    'npm install',
-    'npm run setup',
-    'cp server/.env.example server/.env',
-    'npm run dev',
-  ]
+    "npm install",
+    "npm run setup",
+    "cp server/.env.example server/.env",
+    "npm run dev",
+  ];
 
   return (
     <main className="forge-app">
@@ -52,11 +52,7 @@ function App() {
       </section>
 
       <nav className="resource-links" aria-label="Documentation links">
-        <a
-          href="https://react.dev/learn"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href="https://react.dev/learn" target="_blank" rel="noreferrer">
           React Guide
         </a>
         <a
@@ -66,16 +62,12 @@ function App() {
         >
           Express Docs
         </a>
-        <a
-          href="https://mongoosejs.com/docs/"
-          target="_blank"
-          rel="noreferrer"
-        >
+        <a href="https://mongoosejs.com/docs/" target="_blank" rel="noreferrer">
           Mongoose Models
         </a>
       </nav>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;

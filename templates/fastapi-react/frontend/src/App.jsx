@@ -1,13 +1,13 @@
-import './App.css'
+import "./App.css";
 
 function App() {
   const runbook = [
-    'python -m venv backend/venv',
-    'source backend/venv/bin/activate  # Windows: backend\\venv\\Scripts\\activate',
-    'npm install',
-    'npm run setup',
-    'npm run dev',
-  ]
+    "python -m venv backend/venv",
+    "source backend/venv/bin/activate  # Windows: backend\\venv\\Scripts\\activate",
+    "npm install",
+    "npm run setup",
+    "npm run dev",
+  ];
 
   return (
     <main className="atlas-app">
@@ -50,7 +50,11 @@ function App() {
       </section>
 
       <footer className="atlas-links" aria-label="Documentation links">
-        <a href="https://fastapi.tiangolo.com/" target="_blank" rel="noreferrer">
+        <a
+          href="https://fastapi.tiangolo.com/"
+          target="_blank"
+          rel="noreferrer"
+        >
           FastAPI Docs
         </a>
         <a href="https://react.dev/learn" target="_blank" rel="noreferrer">
@@ -61,7 +65,7 @@ function App() {
         </a>
       </footer>
     </main>
-  )
+  );
 }
 
-export default App
+export default App;
