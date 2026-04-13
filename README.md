@@ -57,6 +57,10 @@ React frontend templates in this project are based on
 [create-vite](https://github.com/vitejs/vite/tree/main/packages/create-vite),
 MIT licensed. Copyright (c) 2019-present Yuxi (Evan) You and Vite contributors.
 
+Next.js template in this project is based on
+[create-next-app](https://github.com/vercel/next.js/tree/canary/packages/create-next-app),
+MIT licensed. Copyright (c) 2024 Vercel, Inc.
+
 ## License
 
 MIT
