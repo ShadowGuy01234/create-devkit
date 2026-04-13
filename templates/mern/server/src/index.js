@@ -1,24 +1,24 @@
-import 'dotenv/config';
-import express from 'express';
-import cors from 'cors';
-import mongoose from 'mongoose';
-import healthRouter from './routes/health.js';
+import "dotenv/config";
+import express from "express";
+import cors from "cors";
+import apiRouter from "./routes/index.js";
+import { env } from "./config/env.js";
+import { connectDatabase } from "./config/database.js";
+import { notFound } from "./middleware/notFound.js";
+import { errorHandler } from "./middleware/errorHandler.js";
+import { logger } from "./utils/logger.js";
 
 const app = express();
-const PORT = process.env.PORT || 3001;
 
 app.use(cors());
 app.use(express.json());
 
-app.use('/api', healthRouter);
+app.use("/api", apiRouter);
+app.use(notFound);
+app.use(errorHandler);
 
-const MONGO_URI = process.env.MONGO_URI || 'mongodb://localhost:27017/myapp';
+await connectDatabase();
 
-mongoose
-  .connect(MONGO_URI)
-  .then(() => console.log('Connected to MongoDB'))
-  .catch((err) => console.warn('MongoDB not available:', err.message));
-
-app.listen(PORT, () => {
-  console.log(`Server running on http://localhost:${PORT}`);
+app.listen(env.port, () => {
+  logger.info(`Server running on http://localhost:${env.port}`);
 });
