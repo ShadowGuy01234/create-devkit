@@ -5,6 +5,42 @@ import ora from "ora";
 import chalk from "chalk";
 import { runPostInstall } from "./postinstall.js";
 
+const DEFAULT_ROOT_GITIGNORE = `# Dependencies
+node_modules/
+
+# Build outputs
+dist/
+build/
+coverage/
+.next/
+.angular/
+*.tsbuildinfo
+
+# Environment and local overrides
+.env
+.env.*
+!.env.example
+
+# Python virtual environments and caches
+venv/
+.venv/
+__pycache__/
+*.pyc
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# OS and editor files
+.DS_Store
+.vscode/
+!.vscode/extensions.json
+.idea/
+`;
+
 /**
  * Main scaffold function. Copies a template to the target directory,
  * replaces {{PROJECT_NAME}} tokens, and renames _gitignore → .gitignore.
@@ -39,6 +75,7 @@ export async function scaffold(config) {
     await fs.copy(tmpl.dir, target, { errorOnExist: true });
     await replaceTokens(target, projectName);
     await renameGitignores(target);
+    await ensureRootGitignore(target);
     spinner.succeed(chalk.green(`Created ${chalk.bold(projectName)}`));
   } catch (err) {
     spinner.fail("Scaffolding failed.");
@@ -91,4 +128,15 @@ async function renameGitignores(dir) {
       await fs.rename(abs, path.join(dir, ".gitignore"));
     }
   }
+}
+
+/**
+ * Ensures scaffolded projects always contain a root .gitignore.
+ * This protects against accidental template omissions of root _gitignore.
+ */
+async function ensureRootGitignore(dir) {
+  const rootGitignore = path.join(dir, ".gitignore");
+  if (await fs.pathExists(rootGitignore)) return;
+
+  await fs.writeFile(rootGitignore, DEFAULT_ROOT_GITIGNORE, "utf8");
 }
