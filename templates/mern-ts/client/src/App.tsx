@@ -1,49 +1,97 @@
 import "./App.css";
 
 function App() {
-  const launchSteps = [
+  const workflow = [
+    {
+      tone: "develop",
+      title: "Develop",
+      summary:
+        "Implement typed React surfaces with immediate HMR and API-forward proxying.",
+      command: "npm run dev:client",
+    },
+    {
+      tone: "preview",
+      title: "Preview",
+      summary:
+        "Exercise typed server handlers and payload contracts before release.",
+      command: "npm run dev:server",
+    },
+    {
+      tone: "ship",
+      title: "Ship",
+      summary:
+        "Execute both processes from one command through concurrently orchestration.",
+      command: "npm run dev",
+    },
+  ];
+
+  const foundations = [
+    {
+      title: "Typed Client Layer",
+      detail:
+        "Type-safe component foundation for fast feature composition and safer refactors.",
+      anchor: "client/src/",
+    },
+    {
+      title: "Service-Oriented API",
+      detail:
+        "Express structure with isolated routes, controllers, services, and utility modules.",
+      anchor: "server/src/",
+    },
+  ];
+
+  const setupSteps = [
     "npm install",
     "npm run setup",
     "cp server/.env.example server/.env",
     "npm run dev",
   ];
 
-  return (
-    <main className="forge-app">
-      <div className="halo halo-top" aria-hidden="true"></div>
-      <div className="halo halo-bottom" aria-hidden="true"></div>
+  const resources = [
+    { label: "React + TS", href: "https://react.dev/learn/typescript" },
+    { label: "TypeScript Docs", href: "https://www.typescriptlang.org/docs/" },
+    { label: "Express Docs", href: "https://expressjs.com/" },
+  ];
 
-      <header className="forge-hero">
-        <p className="forge-label">MERN STACK</p>
-        <h1>Your Full-Stack Forge Is Online</h1>
+  return (
+    <main className="studio-shell">
+      <header className="studio-hero">
+        <p className="studio-kicker">MERN STACK + TYPESCRIPT</p>
+        <h1>Type-Safe Product Delivery Baseline</h1>
         <p>
-          React runs the interface, Express powers the API, and MongoDB models
-          are ready for your first feature.
+          A restrained, infrastructure-first launchpad tuned for strict typing,
+          reliable iteration loops, and production-minded velocity.
         </p>
       </header>
 
-      <section className="status-grid" aria-label="Stack status">
-        <article className="status-card">
-          <h2>Frontend</h2>
-          <p>Vite dev server with /api proxy preconfigured.</p>
-          <code>npm run dev:client</code>
-        </article>
-        <article className="status-card">
-          <h2>Backend</h2>
-          <p>Express API with layered folder structure and watch mode.</p>
-          <code>npm run dev:server</code>
-        </article>
-        <article className="status-card">
-          <h2>Orchestrator</h2>
-          <p>Run both services together through concurrently.</p>
-          <code>npm run dev</code>
-        </article>
+      <section className="workflow-grid" aria-label="Workflow pipeline">
+        {workflow.map((item) => (
+          <article
+            key={item.title}
+            className="workflow-step"
+            data-tone={item.tone}
+          >
+            <h2>{item.title}</h2>
+            <p>{item.summary}</p>
+            <code>{item.command}</code>
+          </article>
+        ))}
       </section>
 
-      <section className="launch-board" aria-label="Launch sequence">
-        <h2>Launch Sequence</h2>
+      <section className="foundation-grid" aria-label="Project foundations">
+        {foundations.map((item) => (
+          <article key={item.title} className="foundation-card">
+            <h2>{item.title}</h2>
+            <p>{item.detail}</p>
+            <code>{item.anchor}</code>
+          </article>
+        ))}
+      </section>
+
+      <section className="command-board" aria-label="Bootstrap commands">
+        <h2>Bootstrap Commands</h2>
         <ol>
-          {launchSteps.map((step) => (
+          {setupSteps.map((step) => (
             <li key={step}>
               <code>{step}</code>
             </li>
@@ -51,21 +99,13 @@ function App() {
         </ol>
       </section>
 
-      <nav className="resource-links" aria-label="Documentation links">
-        <a href="https://react.dev/learn" target="_blank" rel="noreferrer">
-          React Guide
-        </a>
-        <a
-          href="https://expressjs.com/en/starter/installing.html"
-          target="_blank"
-          rel="noreferrer"
-        >
-          Express Docs
-        </a>
-        <a href="https://mongoosejs.com/docs/" target="_blank" rel="noreferrer">
-          Mongoose Models
-        </a>
-      </nav>
+      <footer className="resource-row" aria-label="Documentation links">
+        {resources.map((item) => (
+          <a key={item.label} href={item.href} target="_blank" rel="noreferrer">
+            {item.label}
+          </a>
+        ))}
+      </footer>
     </main>
   );
 }

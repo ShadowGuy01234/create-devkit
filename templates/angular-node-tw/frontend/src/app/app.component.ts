@@ -1,228 +1,149 @@
-import { NgFor } from "@angular/common";
+import { NgClass, NgFor } from "@angular/common";
 import { Component } from "@angular/core";
 
 @Component({
   selector: "app-root",
   standalone: true,
-  imports: [NgFor],
+  imports: [NgClass, NgFor],
   template: `
-    <main class="nova-shell">
-      <header class="nova-hero">
-        <p class="nova-kicker">ANGULAR + NODE</p>
-        <h1>Frontend Command Bridge</h1>
-        <p>
-          Angular handles interaction-heavy UI while Express powers your backend
-          routes. Use one root command to run both services in parallel.
-        </p>
-      </header>
-
-      <section class="nova-grid" aria-label="Workspace overview">
-        <article class="nova-card">
-          <h2>Frontend</h2>
-          <p>Angular CLI dev server with API proxy support.</p>
-          <code>npm run dev:frontend</code>
-        </article>
-        <article class="nova-card">
-          <h2>Backend</h2>
-          <p>Express service with layered backend folders.</p>
-          <code>npm run dev:server</code>
-        </article>
-        <article class="nova-card nova-card-accent">
-          <h2>Combined Start</h2>
-          <p>concurrently launches frontend and backend in one go.</p>
-          <code>npm run dev</code>
-        </article>
-      </section>
-
-      <section class="nova-runbook" aria-label="Runbook">
-        <h2>Runbook</h2>
-        <ol>
-          <li *ngFor="let step of runbook">
-            <code>{{ step }}</code>
-          </li>
-        </ol>
-      </section>
-
-      <footer class="nova-links" aria-label="Documentation links">
-        <a
-          *ngFor="let resource of resources"
-          [href]="resource.href"
-          target="_blank"
-          rel="noreferrer"
+    <main
+      class="min-h-screen bg-[radial-gradient(circle_at_15%_-10%,rgba(56,189,248,0.2),transparent_46%),radial-gradient(circle_at_85%_0%,rgba(34,197,94,0.14),transparent_42%),#050505] text-[#ededed]"
+    >
+      <div
+        class="mx-auto grid w-full max-w-6xl gap-4 px-4 py-6 md:px-8 md:py-10"
+      >
+        <header
+          class="rounded-xl border border-white/10 bg-[#0b0b0d] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.04)] md:p-8"
         >
-          {{ resource.label }}
-        </a>
-      </footer>
+          <p
+            class="font-mono text-[0.72rem] uppercase tracking-[0.24em] text-[#a1a1aa]"
+          >
+            ANGULAR + NODE + TAILWIND
+          </p>
+          <h1
+            class="mt-2 text-[clamp(2rem,5vw,3.35rem)] font-semibold leading-[1.02] tracking-[-0.06em] text-white"
+          >
+            Structured SPA Delivery Baseline
+          </h1>
+          <p class="mt-3 max-w-[66ch] leading-[1.65] text-[#a1a1aa]">
+            A utility-first starting point for teams shipping Angular frontends
+            with Express APIs through a single orchestrated workflow.
+          </p>
+        </header>
+
+        <section
+          class="grid gap-3 md:grid-cols-3"
+          aria-label="Workflow pipeline"
+        >
+          <article
+            *ngFor="let item of workflow"
+            class="rounded-[10px] border border-white/10 border-t-[3px] bg-[#0b0b0d] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
+            [ngClass]="item.accent"
+          >
+            <h2 class="text-[1.12rem] tracking-[-0.02em] text-[#f5f5f5]">
+              {{ item.title }}
+            </h2>
+            <p class="mt-2 mb-3 text-[#a1a1aa]">{{ item.summary }}</p>
+            <code
+              class="inline-block rounded-full border border-[#7dd3fc]/30 bg-[#7dd3fc]/10 px-2.5 py-1 font-mono text-xs text-[#7dd3fc]"
+            >
+              {{ item.command }}
+            </code>
+          </article>
+        </section>
+
+        <section
+          class="grid gap-3 md:grid-cols-2"
+          aria-label="Project foundations"
+        >
+          <article
+            *ngFor="let item of foundations"
+            class="rounded-[10px] border border-white/10 bg-[#0b0b0d] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
+          >
+            <h2 class="text-[1.05rem] tracking-[-0.02em] text-[#f5f5f5]">
+              {{ item.title }}
+            </h2>
+            <p class="mt-2 mb-3 text-[#a1a1aa]">{{ item.detail }}</p>
+            <code
+              class="rounded-md border border-white/10 bg-white/5 px-2 py-1 font-mono text-xs text-[#d4d4d8]"
+            >
+              {{ item.anchor }}
+            </code>
+          </article>
+        </section>
+
+        <section
+          class="rounded-[10px] border border-white/10 bg-[#0b0b0d] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
+          aria-label="Bootstrap commands"
+        >
+          <h2 class="text-[1.06rem] tracking-[-0.02em] text-[#f5f5f5]">
+            Bootstrap Commands
+          </h2>
+          <ol class="mt-3 grid list-decimal gap-2 pl-5">
+            <li *ngFor="let step of runbook">
+              <code
+                class="rounded-md border border-white/10 bg-white/5 px-2 py-1 font-mono text-xs text-[#d4d4d8]"
+              >
+                {{ step }}
+              </code>
+            </li>
+          </ol>
+        </section>
+
+        <footer class="flex flex-wrap gap-2.5" aria-label="Documentation links">
+          <a
+            *ngFor="let resource of resources"
+            [href]="resource.href"
+            target="_blank"
+            rel="noreferrer"
+            class="rounded-md border border-white/10 bg-[#0d0d10] px-3 py-1.5 text-sm font-medium text-[#e4e4e7] transition-colors hover:border-white/20 hover:bg-[#141418]"
+          >
+            {{ resource.label }}
+          </a>
+        </footer>
+      </div>
     </main>
   `,
-  styles: [
-    `
-      :host {
-        display: block;
-        min-height: 100vh;
-        font-family: "Trebuchet MS", "Segoe UI", sans-serif;
-        background:
-          radial-gradient(
-            circle at 10% 10%,
-            rgba(255, 242, 173, 0.45),
-            rgba(255, 242, 173, 0) 35%
-          ),
-          radial-gradient(
-            circle at 88% 88%,
-            rgba(123, 214, 255, 0.38),
-            rgba(123, 214, 255, 0) 40%
-          ),
-          #fff9ef;
-        color: #2f1f15;
-      }
-
-      .nova-shell {
-        width: min(1100px, 100%);
-        margin: 0 auto;
-        padding: clamp(1.1rem, 2.4vw, 2rem);
-        display: grid;
-        gap: 1rem;
-        box-sizing: border-box;
-      }
-
-      .nova-hero {
-        border-radius: 1rem;
-        border: 1px solid rgba(180, 118, 76, 0.42);
-        background: linear-gradient(
-          125deg,
-          rgba(255, 238, 217, 0.94),
-          rgba(255, 224, 190, 0.78)
-        );
-        padding: clamp(1rem, 2.1vw, 1.8rem);
-        box-shadow: 0 10px 32px rgba(116, 69, 34, 0.12);
-        animation: appear 600ms ease-out;
-      }
-
-      .nova-kicker {
-        margin: 0;
-        font-size: 0.72rem;
-        letter-spacing: 0.22em;
-        text-transform: uppercase;
-        color: #8f4d1f;
-        font-weight: 700;
-      }
-
-      .nova-hero h1 {
-        margin: 0.5rem 0 0.65rem;
-        font-size: clamp(1.9rem, 5vw, 3.1rem);
-        line-height: 1;
-      }
-
-      .nova-hero p {
-        margin: 0;
-        max-width: 64ch;
-        color: #5d3f2c;
-      }
-
-      .nova-grid {
-        display: grid;
-        gap: 0.9rem;
-        grid-template-columns: repeat(3, minmax(0, 1fr));
-      }
-
-      .nova-card {
-        border-radius: 0.95rem;
-        border: 1px solid rgba(184, 133, 88, 0.35);
-        background: rgba(255, 245, 232, 0.88);
-        padding: 0.95rem;
-      }
-
-      .nova-card h2 {
-        margin: 0;
-        font-size: 1.03rem;
-      }
-
-      .nova-card p {
-        margin: 0.5rem 0 0.75rem;
-        color: #654934;
-      }
-
-      .nova-card code,
-      .nova-runbook code {
-        font-family: "Cascadia Mono", Consolas, monospace;
-        border-radius: 0.5rem;
-        border: 1px solid rgba(180, 118, 76, 0.42);
-        background: rgba(255, 223, 188, 0.35);
-        padding: 0.3rem 0.5rem;
-        display: inline-block;
-        color: #5b3213;
-      }
-
-      .nova-card-accent {
-        background: linear-gradient(
-          160deg,
-          rgba(232, 247, 255, 0.93),
-          rgba(202, 236, 255, 0.72)
-        );
-      }
-
-      .nova-runbook {
-        border-radius: 0.95rem;
-        border: 1px solid rgba(184, 133, 88, 0.35);
-        background: rgba(255, 249, 242, 0.9);
-        padding: 0.95rem;
-      }
-
-      .nova-runbook h2 {
-        margin: 0 0 0.65rem;
-        font-size: 1.08rem;
-      }
-
-      .nova-runbook ol {
-        margin: 0;
-        padding-left: 1.15rem;
-        display: grid;
-        gap: 0.5rem;
-      }
-
-      .nova-links {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 0.65rem;
-      }
-
-      .nova-links a {
-        text-decoration: none;
-        color: #57351e;
-        border: 1px solid rgba(184, 133, 88, 0.45);
-        border-radius: 999px;
-        background: rgba(255, 247, 236, 0.92);
-        padding: 0.45rem 0.84rem;
-        transition:
-          transform 180ms ease,
-          border-color 180ms ease;
-      }
-
-      .nova-links a:hover {
-        transform: translateY(-2px);
-        border-color: #995829;
-      }
-
-      @keyframes appear {
-        from {
-          opacity: 0;
-          transform: translateY(12px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
-        }
-      }
-
-      @media (max-width: 860px) {
-        .nova-grid {
-          grid-template-columns: 1fr;
-        }
-      }
-    `,
-  ],
+  styles: [":host{display:block;min-height:100vh}"],
 })
 export class AppComponent {
+  readonly workflow = [
+    {
+      title: "Develop",
+      summary: "Implement Angular UI with fast feedback and API proxy support.",
+      command: "npm run dev:frontend",
+      accent: "border-t-[#0a72ef]",
+    },
+    {
+      title: "Preview",
+      summary:
+        "Validate Express routes and contracts in isolated backend runtime.",
+      command: "npm run dev:server",
+      accent: "border-t-[#de1d8d]",
+    },
+    {
+      title: "Ship",
+      summary:
+        "Launch both services from one root command through concurrently.",
+      command: "npm run dev",
+      accent: "border-t-[#ff5b4f]",
+    },
+  ];
+
+  readonly foundations = [
+    {
+      title: "Frontend Surface",
+      detail: "Angular app scaffolding ready for modular UI and route growth.",
+      anchor: "frontend/src/app/",
+    },
+    {
+      title: "Backend Core",
+      detail:
+        "Express service structure with controllers, routes, and utility modules.",
+      anchor: "server/src/",
+    },
+  ];
+
   readonly runbook = [
     "npm install",
     "npm run setup",

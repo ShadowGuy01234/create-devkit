@@ -1,144 +1,189 @@
-.atlas-app {
-  width: min(1100px, 100%);
+.studio-shell {
+  width: min(1120px, 100%);
   margin: 0 auto;
-  padding: clamp(1.2rem, 2.4vw, 2rem);
+  padding: clamp(1.25rem, 3vw, 2.75rem) clamp(1rem, 2.5vw, 2rem) 2.5rem;
   display: grid;
   gap: 1rem;
 }
 
-.atlas-hero {
-  border-radius: 1.1rem;
-  padding: clamp(1.1rem, 2.2vw, 1.9rem);
-  border: 1px solid #9ad4ff;
-  background: linear-gradient(130deg, rgba(255, 255, 255, 0.88), rgba(236, 245, 255, 0.88));
-  box-shadow: 0 12px 40px rgba(22, 62, 119, 0.1);
-  animation: glide 560ms ease-out;
+.studio-hero {
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: linear-gradient(180deg, rgba(11, 11, 13, 0.96), rgba(8, 8, 10, 0.95));
+  padding: clamp(1.15rem, 2.4vw, 2rem);
+  box-shadow:
+    rgba(0, 0, 0, 0.5) 0 30px 80px,
+    rgba(255, 255, 255, 0.03) 0 1px 0 inset;
 }
 
-.atlas-tag {
+.studio-kicker {
   margin: 0;
-  color: #0c6ba9;
-  letter-spacing: 0.23em;
+  font-family: "Geist Mono", "SFMono-Regular", Menlo, Consolas, monospace;
   font-size: 0.72rem;
+  letter-spacing: 0.24em;
   text-transform: uppercase;
-  font-weight: 700;
+  color: #a1a1aa;
 }
 
-.atlas-hero h1 {
-  margin: 0.35rem 0 0.7rem;
-  font-size: clamp(2rem, 5.4vw, 3.2rem);
-  line-height: 1;
-  color: #0f1f32;
+.studio-hero h1 {
+  margin: 0.55rem 0 0.75rem;
+  font-size: clamp(2rem, 5vw, 3.35rem);
+  line-height: 1.02;
+  letter-spacing: -0.06em;
+  font-weight: 600;
+  color: #fafafa;
 }
 
-.atlas-hero p {
+.studio-hero p {
   margin: 0;
-  max-width: 62ch;
-  color: #2f475d;
+  max-width: 66ch;
+  color: #a1a1aa;
+  line-height: 1.65;
 }
 
-.atlas-grid {
+.workflow-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 0.9rem;
 }
 
-.atlas-panel {
-  border-radius: 1rem;
-  border: 1px solid #bfdcf5;
-  background: rgba(255, 255, 255, 0.86);
+.workflow-step {
+  border-top: 3px solid #27272a;
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-left: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  background: #0b0b0d;
   padding: 1rem;
-  box-shadow: 0 8px 24px rgba(33, 75, 119, 0.09);
+  box-shadow: rgba(255, 255, 255, 0.03) 0 1px 0 inset;
 }
 
-.atlas-panel h2 {
+.workflow-step[data-tone="develop"] {
+  border-top-color: #38bdf8;
+}
+
+.workflow-step[data-tone="preview"],
+.workflow-step[data-tone="validate"] {
+  border-top-color: #a855f7;
+}
+
+.workflow-step[data-tone="ship"],
+.workflow-step[data-tone="launch"] {
+  border-top-color: #22c55e;
+}
+
+.workflow-step h2 {
   margin: 0;
-  color: #123455;
-  font-size: 1.03rem;
+  font-size: 1.12rem;
+  letter-spacing: -0.02em;
+  color: #f5f5f5;
 }
 
-.atlas-panel p {
-  margin: 0.55rem 0 0.8rem;
-  color: #375770;
+.workflow-step p {
+  margin: 0.5rem 0 0.8rem;
+  color: #a1a1aa;
 }
 
-.atlas-panel code {
-  display: inline-block;
-  font-size: 0.8rem;
-  color: #0a588d;
-  background: rgba(110, 199, 255, 0.18);
-  border: 1px solid rgba(9, 102, 166, 0.32);
-  border-radius: 0.5rem;
-  padding: 0.35rem 0.5rem;
+.workflow-step code {
+  font-family: "Geist Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.78rem;
+  border-radius: 9999px;
+  padding: 0.34rem 0.62rem;
+  border: 1px solid rgba(125, 211, 252, 0.3);
+  background: rgba(125, 211, 252, 0.12);
+  color: #7dd3fc;
 }
 
-.atlas-panel-accent {
-  border-color: #a8ebca;
-  background: linear-gradient(160deg, rgba(225, 252, 238, 0.96), rgba(243, 255, 249, 0.9));
-}
-
-.runbook {
-  border-radius: 1rem;
-  border: 1px solid #cbe3f7;
-  background: rgba(249, 252, 255, 0.9);
-  padding: 1rem;
-}
-
-.runbook h2 {
-  margin: 0 0 0.7rem;
-  color: #113454;
-  font-size: 1.08rem;
-}
-
-.runbook ol {
-  margin: 0;
-  padding-left: 1.15rem;
+.foundation-grid {
   display: grid;
-  gap: 0.55rem;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.9rem;
 }
 
-.runbook code {
-  color: #05436e;
-  background: rgba(90, 173, 232, 0.14);
-  border: 1px solid rgba(90, 173, 232, 0.35);
-  border-radius: 0.5rem;
-  padding: 0.3rem 0.5rem;
+.foundation-card {
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0b0b0d;
+  padding: 1rem;
+  box-shadow: rgba(255, 255, 255, 0.03) 0 1px 0 inset;
 }
 
-.atlas-links {
+.foundation-card h2 {
+  margin: 0;
+  font-size: 1.05rem;
+  letter-spacing: -0.02em;
+  color: #f5f5f5;
+}
+
+.foundation-card p {
+  margin: 0.5rem 0 0.78rem;
+  color: #a1a1aa;
+}
+
+.foundation-card code,
+.command-board code {
+  font-family: "Geist Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+  font-size: 0.8rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.04);
+  color: #d4d4d8;
+  border-radius: 6px;
+  padding: 0.28rem 0.46rem;
+}
+
+.command-board {
+  border-radius: 10px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0b0b0d;
+  padding: 1rem;
+  box-shadow: rgba(255, 255, 255, 0.03) 0 1px 0 inset;
+}
+
+.command-board h2 {
+  margin: 0 0 0.7rem;
+  font-size: 1.06rem;
+  letter-spacing: -0.02em;
+  color: #f5f5f5;
+}
+
+.command-board ol {
+  margin: 0;
+  padding-left: 1.1rem;
+  display: grid;
+  gap: 0.5rem;
+}
+
+.resource-row {
   display: flex;
   flex-wrap: wrap;
   gap: 0.65rem;
 }
 
-.atlas-links a {
+.resource-row a {
   text-decoration: none;
-  color: #15385a;
-  border-radius: 999px;
-  border: 1px solid #abcce8;
-  background: rgba(255, 255, 255, 0.74);
-  padding: 0.45rem 0.85rem;
-  transition: transform 180ms ease, border-color 180ms ease;
+  font-size: 0.86rem;
+  font-weight: 500;
+  color: #e4e4e7;
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: #0d0d10;
+  padding: 0.42rem 0.74rem;
+  transition: border-color 180ms ease, background-color 180ms ease;
 }
 
-.atlas-links a:hover {
-  transform: translateY(-2px);
-  border-color: #4f95ce;
+.resource-row a:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  background: #141418;
 }
 
-@keyframes glide {
-  from {
-    opacity: 0;
-    transform: translateY(14px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
+@media (max-width: 920px) {
+  .workflow-grid {
+    grid-template-columns: 1fr;
   }
 }
 
-@media (max-width: 860px) {
-  .atlas-grid {
+@media (max-width: 680px) {
+  .foundation-grid {
     grid-template-columns: 1fr;
   }
 }

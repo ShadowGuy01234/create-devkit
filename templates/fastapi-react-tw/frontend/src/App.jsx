@@ -1,69 +1,147 @@
-import "./App.css";
-
 function App() {
-  const runbook = [
+  const workflow = [
+    {
+      title: "Develop",
+      summary:
+        "Build React views with fast HMR and backend proxy support in place.",
+      command: "npm run dev:frontend",
+      accent: "border-t-[#0a72ef]",
+    },
+    {
+      title: "Validate",
+      summary:
+        "Exercise FastAPI endpoints and schema changes in isolated backend runtime.",
+      command: "npm run dev:backend",
+      accent: "border-t-[#de1d8d]",
+    },
+    {
+      title: "Launch",
+      summary: "Start frontend and backend together via one root command.",
+      command: "npm run dev",
+      accent: "border-t-[#ff5b4f]",
+    },
+  ];
+
+  const foundations = [
+    {
+      title: "Frontend Surface",
+      detail:
+        "Vite + React workspace for rapid UI implementation and API orchestration.",
+      anchor: "frontend/src/",
+    },
+    {
+      title: "Backend Domain Layer",
+      detail:
+        "FastAPI architecture split across api, core, schemas, models, and services.",
+      anchor: "backend/app/",
+    },
+  ];
+
+  const setupSteps = [
     "python -m venv backend/venv",
-    "source backend/venv/bin/activate  # Windows: backend\\venv\\Scripts\\activate",
+    "backend\\venv\\Scripts\\activate",
     "npm install",
     "npm run setup",
     "npm run dev",
   ];
 
+  const resources = [
+    { label: "FastAPI Docs", href: "https://fastapi.tiangolo.com/" },
+    { label: "React Docs", href: "https://react.dev/learn" },
+    { label: "Vite Docs", href: "https://vite.dev/guide/" },
+  ];
+
   return (
-    <main className="atlas-app">
-      <header className="atlas-hero">
-        <p className="atlas-tag">FASTAPI + REACT</p>
-        <h1>API Flight Deck</h1>
-        <p>
-          A clean split between UI and backend, tuned for quick iterations with
-          one orchestrated dev command.
-        </p>
-      </header>
+    <main className="min-h-screen bg-[radial-gradient(circle_at_15%_-10%,rgba(56,189,248,0.2),transparent_46%),radial-gradient(circle_at_85%_0%,rgba(34,197,94,0.14),transparent_42%),#050505] text-[#ededed]">
+      <div className="mx-auto grid w-full max-w-6xl gap-4 px-4 py-6 md:px-8 md:py-10">
+        <header className="rounded-xl border border-white/10 bg-[#0b0b0d] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.04)] md:p-8">
+          <p className="font-mono text-[0.72rem] uppercase tracking-[0.24em] text-[#a1a1aa]">
+            FASTAPI + REACT + TAILWIND
+          </p>
+          <h1 className="mt-2 text-[clamp(2rem,5vw,3.35rem)] font-semibold leading-[1.02] tracking-[-0.06em] text-white">
+            Python API Product Baseline
+          </h1>
+          <p className="mt-3 max-w-[66ch] leading-[1.65] text-[#a1a1aa]">
+            A utility-first launchpad for teams delivering React interfaces with
+            production-grade FastAPI backend workflows.
+          </p>
+        </header>
 
-      <section className="atlas-grid" aria-label="Environment panels">
-        <article className="atlas-panel">
-          <h2>Frontend</h2>
-          <p>React + Vite serves your interface on port 5173.</p>
-          <code>npm run dev:frontend</code>
-        </article>
-        <article className="atlas-panel">
-          <h2>Backend</h2>
-          <p>FastAPI serves versioned endpoints on port 5000.</p>
-          <code>npm run dev:backend</code>
-        </article>
-        <article className="atlas-panel atlas-panel-accent">
-          <h2>Joint Launch</h2>
-          <p>Both services run in one terminal via concurrently.</p>
-          <code>npm run dev</code>
-        </article>
-      </section>
-
-      <section className="runbook" aria-label="Setup runbook">
-        <h2>Setup Runbook</h2>
-        <ol>
-          {runbook.map((step) => (
-            <li key={step}>
-              <code>{step}</code>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <footer className="atlas-links" aria-label="Documentation links">
-        <a
-          href="https://fastapi.tiangolo.com/"
-          target="_blank"
-          rel="noreferrer"
+        <section
+          className="grid gap-3 md:grid-cols-3"
+          aria-label="Workflow pipeline"
         >
-          FastAPI Docs
-        </a>
-        <a href="https://react.dev/learn" target="_blank" rel="noreferrer">
-          React Guide
-        </a>
-        <a href="https://vite.dev/guide/" target="_blank" rel="noreferrer">
-          Vite Guide
-        </a>
-      </footer>
+          {workflow.map((item) => (
+            <article
+              key={item.title}
+              className={`rounded-[10px] border border-white/10 border-t-[3px] bg-[#0b0b0d] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] ${item.accent}`}
+            >
+              <h2 className="text-[1.12rem] tracking-[-0.02em] text-[#f5f5f5]">
+                {item.title}
+              </h2>
+              <p className="mt-2 mb-3 text-[#a1a1aa]">{item.summary}</p>
+              <code className="inline-block rounded-full border border-[#7dd3fc]/30 bg-[#7dd3fc]/10 px-2.5 py-1 font-mono text-xs text-[#7dd3fc]">
+                {item.command}
+              </code>
+            </article>
+          ))}
+        </section>
+
+        <section
+          className="grid gap-3 md:grid-cols-2"
+          aria-label="Project foundations"
+        >
+          {foundations.map((item) => (
+            <article
+              key={item.title}
+              className="rounded-[10px] border border-white/10 bg-[#0b0b0d] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
+            >
+              <h2 className="text-[1.05rem] tracking-[-0.02em] text-[#f5f5f5]">
+                {item.title}
+              </h2>
+              <p className="mt-2 mb-3 text-[#a1a1aa]">{item.detail}</p>
+              <code className="rounded-md border border-white/10 bg-white/5 px-2 py-1 font-mono text-xs text-[#d4d4d8]">
+                {item.anchor}
+              </code>
+            </article>
+          ))}
+        </section>
+
+        <section
+          className="rounded-[10px] border border-white/10 bg-[#0b0b0d] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
+          aria-label="Bootstrap commands"
+        >
+          <h2 className="text-[1.06rem] tracking-[-0.02em] text-[#f5f5f5]">
+            Bootstrap Commands
+          </h2>
+          <ol className="mt-3 grid list-decimal gap-2 pl-5">
+            {setupSteps.map((step) => (
+              <li key={step}>
+                <code className="rounded-md border border-white/10 bg-white/5 px-2 py-1 font-mono text-xs text-[#d4d4d8]">
+                  {step}
+                </code>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <footer
+          className="flex flex-wrap gap-2.5"
+          aria-label="Documentation links"
+        >
+          {resources.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-md border border-white/10 bg-[#0d0d10] px-3 py-1.5 text-sm font-medium text-[#e4e4e7] transition-colors hover:border-white/20 hover:bg-[#141418]"
+            >
+              {item.label}
+            </a>
+          ))}
+        </footer>
+      </div>
     </main>
   );
 }

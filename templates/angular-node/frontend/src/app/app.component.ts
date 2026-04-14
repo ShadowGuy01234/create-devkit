@@ -6,36 +6,38 @@ import { Component } from "@angular/core";
   standalone: true,
   imports: [NgFor],
   template: `
-    <main class="nova-shell">
-      <header class="nova-hero">
-        <p class="nova-kicker">ANGULAR + NODE</p>
-        <h1>Frontend Command Bridge</h1>
+    <main class="studio-shell">
+      <header class="studio-hero">
+        <p class="studio-kicker">ANGULAR + NODE</p>
+        <h1>Structured SPA Delivery Baseline</h1>
         <p>
-          Angular handles interaction-heavy UI while Express powers your backend
-          routes. Use one root command to run both services in parallel.
+          A Vercel-inspired starting point for teams shipping Angular frontends
+          with Express APIs through a single orchestrated workflow.
         </p>
       </header>
 
-      <section class="nova-grid" aria-label="Workspace overview">
-        <article class="nova-card">
-          <h2>Frontend</h2>
-          <p>Angular CLI dev server with API proxy support.</p>
-          <code>npm run dev:frontend</code>
-        </article>
-        <article class="nova-card">
-          <h2>Backend</h2>
-          <p>Express service with layered backend folders.</p>
-          <code>npm run dev:server</code>
-        </article>
-        <article class="nova-card nova-card-accent">
-          <h2>Combined Start</h2>
-          <p>concurrently launches frontend and backend in one go.</p>
-          <code>npm run dev</code>
+      <section class="workflow-grid" aria-label="Workflow pipeline">
+        <article
+          *ngFor="let item of workflow"
+          class="workflow-step"
+          [attr.data-tone]="item.tone"
+        >
+          <h2>{{ item.title }}</h2>
+          <p>{{ item.summary }}</p>
+          <code>{{ item.command }}</code>
         </article>
       </section>
 
-      <section class="nova-runbook" aria-label="Runbook">
-        <h2>Runbook</h2>
+      <section class="foundation-grid" aria-label="Project foundations">
+        <article *ngFor="let item of foundations" class="foundation-card">
+          <h2>{{ item.title }}</h2>
+          <p>{{ item.detail }}</p>
+          <code>{{ item.anchor }}</code>
+        </article>
+      </section>
+
+      <section class="command-board" aria-label="Bootstrap commands">
+        <h2>Bootstrap Commands</h2>
         <ol>
           <li *ngFor="let step of runbook">
             <code>{{ step }}</code>
@@ -43,7 +45,7 @@ import { Component } from "@angular/core";
         </ol>
       </section>
 
-      <footer class="nova-links" aria-label="Documentation links">
+      <footer class="resource-row" aria-label="Documentation links">
         <a
           *ngFor="let resource of resources"
           [href]="resource.href"
@@ -60,162 +62,214 @@ import { Component } from "@angular/core";
       :host {
         display: block;
         min-height: 100vh;
-        font-family: "Trebuchet MS", "Segoe UI", sans-serif;
+        font-family:
+          "Geist", "Inter", "Segoe UI", "Helvetica Neue", Arial, sans-serif;
         background:
           radial-gradient(
-            circle at 10% 10%,
-            rgba(255, 242, 173, 0.45),
-            rgba(255, 242, 173, 0) 35%
+            circle at 15% -10%,
+            rgba(56, 189, 248, 0.2),
+            transparent 46%
           ),
           radial-gradient(
-            circle at 88% 88%,
-            rgba(123, 214, 255, 0.38),
-            rgba(123, 214, 255, 0) 40%
+            circle at 85% 0%,
+            rgba(34, 197, 94, 0.14),
+            transparent 42%
           ),
-          #fff9ef;
-        color: #2f1f15;
+          #050505;
+        color: #ededed;
       }
 
-      .nova-shell {
-        width: min(1100px, 100%);
+      .studio-shell {
+        width: min(1120px, 100%);
         margin: 0 auto;
-        padding: clamp(1.1rem, 2.4vw, 2rem);
+        padding: clamp(1.25rem, 3vw, 2.75rem) clamp(1rem, 2.5vw, 2rem) 2.5rem;
         display: grid;
         gap: 1rem;
         box-sizing: border-box;
       }
 
-      .nova-hero {
-        border-radius: 1rem;
-        border: 1px solid rgba(180, 118, 76, 0.42);
+      .studio-hero {
+        border-radius: 12px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
         background: linear-gradient(
-          125deg,
-          rgba(255, 238, 217, 0.94),
-          rgba(255, 224, 190, 0.78)
+          180deg,
+          rgba(11, 11, 13, 0.96),
+          rgba(8, 8, 10, 0.95)
         );
-        padding: clamp(1rem, 2.1vw, 1.8rem);
-        box-shadow: 0 10px 32px rgba(116, 69, 34, 0.12);
-        animation: appear 600ms ease-out;
+        padding: clamp(1.15rem, 2.4vw, 2rem);
+        box-shadow:
+          rgba(0, 0, 0, 0.5) 0 30px 80px,
+          rgba(255, 255, 255, 0.03) 0 1px 0 inset;
       }
 
-      .nova-kicker {
+      .studio-kicker {
         margin: 0;
+        font-family: "Geist Mono", "SFMono-Regular", Menlo, Consolas, monospace;
         font-size: 0.72rem;
-        letter-spacing: 0.22em;
+        letter-spacing: 0.24em;
         text-transform: uppercase;
-        color: #8f4d1f;
-        font-weight: 700;
+        color: #a1a1aa;
       }
 
-      .nova-hero h1 {
-        margin: 0.5rem 0 0.65rem;
-        font-size: clamp(1.9rem, 5vw, 3.1rem);
-        line-height: 1;
+      .studio-hero h1 {
+        margin: 0.55rem 0 0.75rem;
+        font-size: clamp(2rem, 5vw, 3.35rem);
+        line-height: 1.02;
+        letter-spacing: -0.06em;
+        font-weight: 600;
+        color: #fafafa;
       }
 
-      .nova-hero p {
+      .studio-hero p {
         margin: 0;
-        max-width: 64ch;
-        color: #5d3f2c;
+        max-width: 66ch;
+        color: #a1a1aa;
+        line-height: 1.65;
       }
 
-      .nova-grid {
+      .workflow-grid {
         display: grid;
         gap: 0.9rem;
         grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .nova-card {
-        border-radius: 0.95rem;
-        border: 1px solid rgba(184, 133, 88, 0.35);
-        background: rgba(255, 245, 232, 0.88);
-        padding: 0.95rem;
+      .workflow-step {
+        border-top: 3px solid #27272a;
+        border-right: 1px solid rgba(255, 255, 255, 0.08);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+        border-left: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 10px;
+        background: #0b0b0d;
+        padding: 1rem;
+        box-shadow: rgba(255, 255, 255, 0.03) 0 1px 0 inset;
       }
 
-      .nova-card h2 {
+      .workflow-step[data-tone="develop"] {
+        border-top-color: #38bdf8;
+      }
+
+      .workflow-step[data-tone="preview"] {
+        border-top-color: #a855f7;
+      }
+
+      .workflow-step[data-tone="ship"] {
+        border-top-color: #22c55e;
+      }
+
+      .workflow-step h2 {
         margin: 0;
-        font-size: 1.03rem;
+        font-size: 1.12rem;
+        letter-spacing: -0.02em;
+        color: #f5f5f5;
       }
 
-      .nova-card p {
-        margin: 0.5rem 0 0.75rem;
-        color: #654934;
+      .workflow-step p {
+        margin: 0.5rem 0 0.8rem;
+        color: #a1a1aa;
       }
 
-      .nova-card code,
-      .nova-runbook code {
-        font-family: "Cascadia Mono", Consolas, monospace;
-        border-radius: 0.5rem;
-        border: 1px solid rgba(180, 118, 76, 0.42);
-        background: rgba(255, 223, 188, 0.35);
-        padding: 0.3rem 0.5rem;
-        display: inline-block;
-        color: #5b3213;
+      .workflow-step code {
+        font-family: "Geist Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: 0.78rem;
+        border-radius: 9999px;
+        padding: 0.34rem 0.62rem;
+        border: 1px solid rgba(125, 211, 252, 0.3);
+        background: rgba(125, 211, 252, 0.12);
+        color: #7dd3fc;
       }
 
-      .nova-card-accent {
-        background: linear-gradient(
-          160deg,
-          rgba(232, 247, 255, 0.93),
-          rgba(202, 236, 255, 0.72)
-        );
+      .foundation-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 0.9rem;
       }
 
-      .nova-runbook {
-        border-radius: 0.95rem;
-        border: 1px solid rgba(184, 133, 88, 0.35);
-        background: rgba(255, 249, 242, 0.9);
-        padding: 0.95rem;
+      .foundation-card {
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: #0b0b0d;
+        padding: 1rem;
+        box-shadow: rgba(255, 255, 255, 0.03) 0 1px 0 inset;
       }
 
-      .nova-runbook h2 {
-        margin: 0 0 0.65rem;
-        font-size: 1.08rem;
-      }
-
-      .nova-runbook ol {
+      .foundation-card h2 {
         margin: 0;
-        padding-left: 1.15rem;
+        font-size: 1.05rem;
+        letter-spacing: -0.02em;
+        color: #f5f5f5;
+      }
+
+      .foundation-card p {
+        margin: 0.5rem 0 0.78rem;
+        color: #a1a1aa;
+      }
+
+      .foundation-card code,
+      .command-board code {
+        font-family: "Geist Mono", "SFMono-Regular", Menlo, Consolas, monospace;
+        font-size: 0.8rem;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        background: rgba(255, 255, 255, 0.04);
+        color: #d4d4d8;
+        border-radius: 6px;
+        padding: 0.28rem 0.46rem;
+      }
+
+      .command-board {
+        border-radius: 10px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: #0b0b0d;
+        padding: 1rem;
+        box-shadow: rgba(255, 255, 255, 0.03) 0 1px 0 inset;
+      }
+
+      .command-board h2 {
+        margin: 0 0 0.7rem;
+        font-size: 1.06rem;
+        letter-spacing: -0.02em;
+        color: #f5f5f5;
+      }
+
+      .command-board ol {
+        margin: 0;
+        padding-left: 1.1rem;
         display: grid;
         gap: 0.5rem;
       }
 
-      .nova-links {
+      .resource-row {
         display: flex;
         flex-wrap: wrap;
         gap: 0.65rem;
       }
 
-      .nova-links a {
+      .resource-row a {
         text-decoration: none;
-        color: #57351e;
-        border: 1px solid rgba(184, 133, 88, 0.45);
-        border-radius: 999px;
-        background: rgba(255, 247, 236, 0.92);
-        padding: 0.45rem 0.84rem;
+        font-size: 0.86rem;
+        font-weight: 500;
+        color: #e4e4e7;
+        border-radius: 6px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: #0d0d10;
+        padding: 0.42rem 0.74rem;
         transition:
-          transform 180ms ease,
-          border-color 180ms ease;
+          border-color 180ms ease,
+          background-color 180ms ease;
       }
 
-      .nova-links a:hover {
-        transform: translateY(-2px);
-        border-color: #995829;
+      .resource-row a:hover {
+        border-color: rgba(255, 255, 255, 0.2);
+        background: #141418;
       }
 
-      @keyframes appear {
-        from {
-          opacity: 0;
-          transform: translateY(12px);
-        }
-        to {
-          opacity: 1;
-          transform: translateY(0);
+      @media (max-width: 920px) {
+        .workflow-grid {
+          grid-template-columns: 1fr;
         }
       }
 
-      @media (max-width: 860px) {
-        .nova-grid {
+      @media (max-width: 680px) {
+        .foundation-grid {
           grid-template-columns: 1fr;
         }
       }
@@ -223,6 +277,43 @@ import { Component } from "@angular/core";
   ],
 })
 export class AppComponent {
+  readonly workflow = [
+    {
+      tone: "develop",
+      title: "Develop",
+      summary: "Implement Angular UI with fast feedback and API proxy support.",
+      command: "npm run dev:frontend",
+    },
+    {
+      tone: "preview",
+      title: "Preview",
+      summary:
+        "Validate Express routes and contracts in isolated backend runtime.",
+      command: "npm run dev:server",
+    },
+    {
+      tone: "ship",
+      title: "Ship",
+      summary:
+        "Launch both services from one root command through concurrently.",
+      command: "npm run dev",
+    },
+  ];
+
+  readonly foundations = [
+    {
+      title: "Frontend Surface",
+      detail: "Angular app scaffolding ready for modular UI and route growth.",
+      anchor: "frontend/src/app/",
+    },
+    {
+      title: "Backend Core",
+      detail:
+        "Express service structure with controllers, routes, and utility modules.",
+      anchor: "server/src/",
+    },
+  ];
+
   readonly runbook = [
     "npm install",
     "npm run setup",

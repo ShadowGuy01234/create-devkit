@@ -1,5 +1,9 @@
 # create-devkit
 
+<p align="center">
+	<img src="./assets/logo.png" alt="create-devkit logo" width="500" />
+</p>
+
 Scaffold full-stack starter projects in seconds via `npx`.
 
 `create-devkit` generates opinionated, ready-to-run project structures for popular frontend and full-stack combinations, with optional Tailwind variants and post-setup guidance.

@@ -1,71 +1,145 @@
-import "./App.css";
-
 function App() {
-  const launchSteps = [
+  const workflow = [
+    {
+      title: "Develop",
+      summary:
+        "Build React features with instant HMR and prewired API forwarding.",
+      command: "npm run dev:client",
+      accent: "border-t-[#0a72ef]",
+    },
+    {
+      title: "Preview",
+      summary: "Validate Express routes and payload contracts before release.",
+      command: "npm run dev:server",
+      accent: "border-t-[#de1d8d]",
+    },
+    {
+      title: "Ship",
+      summary: "Run frontend and backend together through one root command.",
+      command: "npm run dev",
+      accent: "border-t-[#ff5b4f]",
+    },
+  ];
+
+  const foundations = [
+    {
+      title: "Client Surface",
+      detail:
+        "React + Vite workspace with straightforward component and data-flow layering.",
+      anchor: "client/src/",
+    },
+    {
+      title: "Server Core",
+      detail:
+        "Express architecture with routes, controllers, services, and middleware boundaries.",
+      anchor: "server/src/",
+    },
+  ];
+
+  const setupSteps = [
     "npm install",
     "npm run setup",
     "cp server/.env.example server/.env",
     "npm run dev",
   ];
 
+  const resources = [
+    { label: "React Docs", href: "https://react.dev/learn" },
+    { label: "Express Docs", href: "https://expressjs.com/" },
+    { label: "MongoDB Docs", href: "https://www.mongodb.com/docs/" },
+  ];
+
   return (
-    <main className="forge-app">
-      <div className="halo halo-top" aria-hidden="true"></div>
-      <div className="halo halo-bottom" aria-hidden="true"></div>
+    <main className="min-h-screen bg-[radial-gradient(circle_at_15%_-10%,rgba(56,189,248,0.2),transparent_46%),radial-gradient(circle_at_85%_0%,rgba(34,197,94,0.14),transparent_42%),#050505] text-[#ededed]">
+      <div className="mx-auto grid w-full max-w-6xl gap-4 px-4 py-6 md:px-8 md:py-10">
+        <header className="rounded-xl border border-white/10 bg-[#0b0b0d] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.04)] md:p-8">
+          <p className="font-mono text-[0.72rem] uppercase tracking-[0.24em] text-[#a1a1aa]">
+            MERN STACK + TAILWIND
+          </p>
+          <h1 className="mt-2 text-[clamp(2rem,5vw,3.35rem)] font-semibold leading-[1.02] tracking-[-0.06em] text-white">
+            Deploy-Ready Full-Stack Foundation
+          </h1>
+          <p className="mt-3 max-w-[66ch] leading-[1.65] text-[#a1a1aa]">
+            A utility-first baseline for teams shipping production-grade web
+            products with fast iteration loops and explicit boundaries.
+          </p>
+        </header>
 
-      <header className="forge-hero">
-        <p className="forge-label">MERN STACK</p>
-        <h1>Your Full-Stack Forge Is Online</h1>
-        <p>
-          React runs the interface, Express powers the API, and MongoDB models
-          are ready for your first feature.
-        </p>
-      </header>
-
-      <section className="status-grid" aria-label="Stack status">
-        <article className="status-card">
-          <h2>Frontend</h2>
-          <p>Vite dev server with /api proxy preconfigured.</p>
-          <code>npm run dev:client</code>
-        </article>
-        <article className="status-card">
-          <h2>Backend</h2>
-          <p>Express API with layered folder structure and watch mode.</p>
-          <code>npm run dev:server</code>
-        </article>
-        <article className="status-card">
-          <h2>Orchestrator</h2>
-          <p>Run both services together through concurrently.</p>
-          <code>npm run dev</code>
-        </article>
-      </section>
-
-      <section className="launch-board" aria-label="Launch sequence">
-        <h2>Launch Sequence</h2>
-        <ol>
-          {launchSteps.map((step) => (
-            <li key={step}>
-              <code>{step}</code>
-            </li>
-          ))}
-        </ol>
-      </section>
-
-      <nav className="resource-links" aria-label="Documentation links">
-        <a href="https://react.dev/learn" target="_blank" rel="noreferrer">
-          React Guide
-        </a>
-        <a
-          href="https://expressjs.com/en/starter/installing.html"
-          target="_blank"
-          rel="noreferrer"
+        <section
+          className="grid gap-3 md:grid-cols-3"
+          aria-label="Workflow pipeline"
         >
-          Express Docs
-        </a>
-        <a href="https://mongoosejs.com/docs/" target="_blank" rel="noreferrer">
-          Mongoose Models
-        </a>
-      </nav>
+          {workflow.map((item) => (
+            <article
+              key={item.title}
+              className={`rounded-[10px] border border-white/10 border-t-[3px] bg-[#0b0b0d] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)] ${item.accent}`}
+            >
+              <h2 className="text-[1.12rem] tracking-[-0.02em] text-[#f5f5f5]">
+                {item.title}
+              </h2>
+              <p className="mt-2 mb-3 text-[#a1a1aa]">{item.summary}</p>
+              <code className="inline-block rounded-full border border-[#7dd3fc]/30 bg-[#7dd3fc]/10 px-2.5 py-1 font-mono text-xs text-[#7dd3fc]">
+                {item.command}
+              </code>
+            </article>
+          ))}
+        </section>
+
+        <section
+          className="grid gap-3 md:grid-cols-2"
+          aria-label="Project foundations"
+        >
+          {foundations.map((item) => (
+            <article
+              key={item.title}
+              className="rounded-[10px] border border-white/10 bg-[#0b0b0d] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
+            >
+              <h2 className="text-[1.05rem] tracking-[-0.02em] text-[#f5f5f5]">
+                {item.title}
+              </h2>
+              <p className="mt-2 mb-3 text-[#a1a1aa]">{item.detail}</p>
+              <code className="rounded-md border border-white/10 bg-white/5 px-2 py-1 font-mono text-xs text-[#d4d4d8]">
+                {item.anchor}
+              </code>
+            </article>
+          ))}
+        </section>
+
+        <section
+          className="rounded-[10px] border border-white/10 bg-[#0b0b0d] p-4 shadow-[inset_0_1px_0_rgba(255,255,255,0.03)]"
+          aria-label="Bootstrap commands"
+        >
+          <h2 className="text-[1.06rem] tracking-[-0.02em] text-[#f5f5f5]">
+            Bootstrap Commands
+          </h2>
+          <ol className="mt-3 grid list-decimal gap-2 pl-5">
+            {setupSteps.map((step) => (
+              <li key={step}>
+                <code className="rounded-md border border-white/10 bg-white/5 px-2 py-1 font-mono text-xs text-[#d4d4d8]">
+                  {step}
+                </code>
+              </li>
+            ))}
+          </ol>
+        </section>
+
+        <footer
+          className="flex flex-wrap gap-2.5"
+          aria-label="Documentation links"
+        >
+          {resources.map((item) => (
+            <a
+              key={item.label}
+              href={item.href}
+              target="_blank"
+              rel="noreferrer"
+              className="rounded-md border border-white/10 bg-[#0d0d10] px-3 py-1.5 text-sm font-medium text-[#e4e4e7] transition-colors hover:border-white/20 hover:bg-[#141418]"
+            >
+              {item.label}
+            </a>
+          ))}
+        </footer>
+      </div>
     </main>
   );
 }
