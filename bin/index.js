@@ -9,7 +9,6 @@ program
   .version("0.1.0")
   .argument("[project-name]", "Directory name for your new project")
   .option("-t, --template <name>", "Skip the menu and use a template directly")
-  .option("-l, --lang <language>", "Template language variant: js or ts")
   .option("--no-git", "Skip git initialisation")
   .option("--no-install", "Skip the npm install prompt")
   .action(async (projectName, options) => {
@@ -17,7 +16,6 @@ program
       await runWizard({
         projectName,
         template: options.template,
-        language: options.lang,
         git: options.git,
         install: options.install,
       });

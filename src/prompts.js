@@ -1,42 +1,33 @@
 // src/prompts.js
 import inquirer from "inquirer";
 import chalk from "chalk";
-import {
-  getDefaultTemplateLanguage,
-  getTemplate,
-  getTemplateLanguages,
-} from "./registry.js";
+import { listStacks, getTemplate } from "./registry.js";
+import { resolveTemplateKey } from "./resolver.js";
 import { scaffold } from "./scaffold.js";
 
 const NAME_PATTERN = /^[a-z0-9][a-z0-9-]*[a-z0-9]$|^[a-z0-9]$/;
 
-function normalizeLanguage(language) {
-  if (!language) return undefined;
-  const value = String(language).trim().toLowerCase();
-  if (value === "javascript") return "js";
-  if (value === "typescript") return "ts";
-  return value;
-}
-
-function languageLabel(language) {
-  return language === "ts" ? "TypeScript (ts)" : "JavaScript (js)";
-}
+// nextjs-prisma-ts already includes Tailwind
+const TAILWIND_SUPPORTED = [
+  "mern",
+  "mern-ts",
+  "fastapi-react",
+  "fastapi-react-ts",
+  "angular-node",
+];
 
 /**
- * Runs the interactive wizard, collecting project configuration from the user
- * and handing off to the scaffold engine.
+ * Runs the interactive wizard and hands off to scaffold.
  *
- * @param {{ projectName?: string, template?: string, language?: string, git?: boolean, install?: boolean }} opts
+ * @param {{ projectName?: string, template?: string, git?: boolean, install?: boolean }} opts
  */
 export async function runWizard({
   projectName,
   template,
-  language,
   git = true,
   install = true,
 }) {
   console.log("\n" + chalk.bold.hex("#646cff")("  create-devkit") + "\n");
-  const normalizedLanguage = normalizeLanguage(language);
 
   const answers = await inquirer.prompt([
     {
@@ -47,43 +38,21 @@ export async function runWizard({
       when: () => !projectName,
       validate: (v) =>
         NAME_PATTERN.test(v) ||
-        "Use lowercase letters, numbers and hyphens. Must start and end with a letter or number.",
+        "Lowercase letters, numbers and hyphens only. Must start and end with a letter or number.",
     },
     {
       type: "list",
-      name: "template",
+      name: "stack",
       message: "Choose a stack:",
       when: () => !template,
-      choices: [
-        {
-          name: "MERN          — MongoDB · Express · React · Node",
-          value: "mern",
-        },
-        { name: "FastAPI + React", value: "fastapi-react" },
-        { name: "Next.js + Prisma", value: "nextjs-prisma" },
-        { name: "Angular + Node.js", value: "angular-node" },
-      ],
+      choices: listStacks(),
     },
     {
-      type: "list",
-      name: "language",
-      message: "Choose template language:",
-      when: (currentAnswers) => {
-        if (normalizedLanguage) return false;
-        const selectedTemplate = template || currentAnswers.template;
-        return getTemplateLanguages(selectedTemplate).length > 1;
-      },
-      choices: (currentAnswers) => {
-        const selectedTemplate = template || currentAnswers.template;
-        return getTemplateLanguages(selectedTemplate).map((lang) => ({
-          name: languageLabel(lang),
-          value: lang,
-        }));
-      },
-      default: (currentAnswers) => {
-        const selectedTemplate = template || currentAnswers.template;
-        return getDefaultTemplateLanguage(selectedTemplate);
-      },
+      type: "confirm",
+      name: "tailwind",
+      message: "Add Tailwind CSS?",
+      default: false,
+      when: (prev) => !template && TAILWIND_SUPPORTED.includes(prev.stack),
     },
     {
       type: "confirm",
@@ -101,21 +70,18 @@ export async function runWizard({
     },
   ]);
 
-  // Validate template + language, whether passed via flags or prompts
-  const resolvedTemplate = template || answers.template;
-  const resolvedLanguage =
-    normalizedLanguage ||
-    answers.language ||
-    getDefaultTemplateLanguage(resolvedTemplate);
-  const resolvedTemplateConfig = getTemplate(
-    resolvedTemplate,
-    resolvedLanguage,
-  );
+  const resolvedKey = template
+    ? template
+    : resolveTemplateKey(answers.stack, {
+        tailwind: answers.tailwind ?? false,
+      });
+
+  const tmpl = getTemplate(resolvedKey);
 
   await scaffold({
     projectName: projectName || answers.projectName,
-    template: resolvedTemplate,
-    language: resolvedTemplateConfig.language,
+    templateKey: resolvedKey,
+    tmpl,
     initGit: answers.initGit ?? (git === false ? false : true),
     installDeps: answers.installDeps ?? false,
   });

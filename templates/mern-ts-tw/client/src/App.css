@@ -1,0 +1,176 @@
+.forge-app {
+  position: relative;
+  width: min(1080px, 100%);
+  margin: 0 auto;
+  padding: 3.5rem clamp(1rem, 2vw, 2rem) 2.5rem;
+  display: grid;
+  gap: 1.4rem;
+  overflow: hidden;
+}
+
+.halo {
+  position: absolute;
+  width: 24rem;
+  aspect-ratio: 1;
+  border-radius: 999px;
+  filter: blur(42px);
+  pointer-events: none;
+  opacity: 0.42;
+}
+
+.halo-top {
+  top: -9rem;
+  right: -6rem;
+  background: radial-gradient(circle, #35f0c6 0%, transparent 70%);
+}
+
+.halo-bottom {
+  bottom: -11rem;
+  left: -8rem;
+  background: radial-gradient(circle, #ff8f4d 0%, transparent 72%);
+}
+
+.forge-hero {
+  border: 1px solid rgba(95, 252, 216, 0.3);
+  border-radius: 1.1rem;
+  padding: clamp(1.2rem, 2.5vw, 2rem);
+  background: linear-gradient(132deg, rgba(13, 23, 40, 0.95), rgba(13, 23, 40, 0.7));
+  backdrop-filter: blur(10px);
+  animation: rise 650ms ease-out;
+}
+
+.forge-label {
+  margin: 0;
+  letter-spacing: 0.26em;
+  font-size: 0.72rem;
+  color: #7af7d9;
+  text-transform: uppercase;
+}
+
+.forge-hero h1 {
+  margin: 0.7rem 0;
+  font-size: clamp(2rem, 5.5vw, 3.45rem);
+  line-height: 1;
+  color: #f3fff8;
+}
+
+.forge-hero p {
+  margin: 0;
+  color: #b9ccd9;
+  max-width: 60ch;
+}
+
+.status-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.status-card {
+  border: 1px solid rgba(122, 247, 217, 0.26);
+  border-radius: 1rem;
+  padding: 1.1rem;
+  background: linear-gradient(180deg, rgba(5, 17, 33, 0.93), rgba(5, 17, 33, 0.75));
+  transform: translateY(14px);
+  opacity: 0;
+  animation: rise 550ms ease-out forwards;
+}
+
+.status-card:nth-child(2) {
+  animation-delay: 90ms;
+}
+
+.status-card:nth-child(3) {
+  animation-delay: 160ms;
+}
+
+.status-card h2 {
+  margin: 0 0 0.45rem;
+  color: #f0fbff;
+  font-size: 1.05rem;
+}
+
+.status-card p {
+  margin: 0 0 0.85rem;
+  color: #9eb4c6;
+}
+
+.status-card code {
+  font-size: 0.8rem;
+  color: #96ffe4;
+  background: rgba(150, 255, 228, 0.1);
+  border: 1px solid rgba(150, 255, 228, 0.35);
+  border-radius: 0.55rem;
+  padding: 0.4rem 0.6rem;
+}
+
+.launch-board {
+  border: 1px solid rgba(255, 166, 96, 0.35);
+  border-radius: 1rem;
+  padding: 1.2rem;
+  background: linear-gradient(145deg, rgba(49, 27, 18, 0.83), rgba(28, 20, 17, 0.6));
+}
+
+.launch-board h2 {
+  margin: 0 0 0.8rem;
+  color: #ffe4ca;
+  font-size: 1.1rem;
+}
+
+.launch-board ol {
+  margin: 0;
+  padding-left: 1.2rem;
+  display: grid;
+  gap: 0.58rem;
+}
+
+.launch-board code {
+  color: #ffd9b6;
+  background: rgba(255, 175, 112, 0.1);
+  border: 1px solid rgba(255, 175, 112, 0.35);
+  border-radius: 0.5rem;
+  padding: 0.33rem 0.52rem;
+}
+
+.resource-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.7rem;
+}
+
+.resource-links a {
+  color: #dff9ee;
+  text-decoration: none;
+  border: 1px solid rgba(223, 249, 238, 0.35);
+  border-radius: 999px;
+  padding: 0.5rem 0.95rem;
+  background: rgba(14, 29, 50, 0.55);
+  transition: transform 200ms ease, border-color 200ms ease, background 200ms ease;
+}
+
+.resource-links a:hover {
+  transform: translateY(-2px);
+  border-color: rgba(122, 247, 217, 0.75);
+  background: rgba(14, 29, 50, 0.85);
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (max-width: 860px) {
+  .forge-app {
+    padding-top: 2.2rem;
+  }
+
+  .status-grid {
+    grid-template-columns: 1fr;
+  }
+}

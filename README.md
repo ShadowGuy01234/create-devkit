@@ -2,7 +2,7 @@
 
 Scaffold full-stack starter projects in seconds via `npx`.
 
-`create-devkit` generates opinionated, ready-to-run project structures for popular frontend and full-stack combinations, with optional language variants and post-setup guidance.
+`create-devkit` generates opinionated, ready-to-run project structures for popular frontend and full-stack combinations, with optional Tailwind variants and post-setup guidance.
 
 ## Why create-devkit
 
@@ -13,18 +13,19 @@ Scaffold full-stack starter projects in seconds via `npx`.
 
 ## Stack Support
 
-| Stack             | Description                             | Language variants |
-| ----------------- | --------------------------------------- | ----------------- |
-| MERN              | MongoDB + Express + React + Node        | `js`, `ts`        |
-| FastAPI + React   | Python FastAPI backend + React frontend | `js`, `ts`        |
-| Next.js + Prisma  | Next.js App Router + Prisma             | `ts`              |
-| Angular + Node.js | Angular frontend + Express backend      | `ts`              |
+| Template key       | Description                             | Tailwind                         |
+| ------------------ | --------------------------------------- | -------------------------------- |
+| `mern`             | MongoDB + Express + React + Node        | Optional (`mern-tw`)             |
+| `mern-ts`          | MERN (TypeScript)                       | Optional (`mern-ts-tw`)          |
+| `fastapi-react`    | Python FastAPI backend + React frontend | Optional (`fastapi-react-tw`)    |
+| `fastapi-react-ts` | FastAPI + React (TypeScript frontend)   | Optional (`fastapi-react-ts-tw`) |
+| `nextjs-prisma-ts` | Next.js App Router + Prisma             | Included by default              |
+| `angular-node`     | Angular frontend + Express backend      | Optional (`angular-node-tw`)     |
 
-### Language defaults
+### Tailwind prompt behavior
 
-- `mern` and `fastapi-react` default to `js`.
-- `angular-node` and `nextjs-prisma` default to `ts`.
-- `--lang` accepts `js`, `ts`, `javascript`, and `typescript`.
+- The wizard asks `Add Tailwind CSS?` for `mern`, `mern-ts`, `fastapi-react`, `fastapi-react-ts`, and `angular-node`.
+- The wizard skips that prompt for `nextjs-prisma-ts` because Tailwind is already included.
 
 ## Quick Start
 
@@ -37,7 +38,7 @@ npx create-devkit
 ### Non-interactive mode
 
 ```bash
-npx create-devkit my-app --template mern --lang ts
+npx create-devkit my-app --template mern-ts-tw --no-git --no-install
 ```
 
 ## CLI Usage
@@ -49,7 +50,6 @@ create-devkit [project-name] [options]
 | Option                  | Description                                        |
 | ----------------------- | -------------------------------------------------- |
 | `-t, --template <name>` | Skip the template menu and use a template directly |
-| `-l, --lang <language>` | Choose template language variant (`js` or `ts`)    |
 | `--no-git`              | Skip git initialization                            |
 | `--no-install`          | Skip npm install prompt                            |
 | `-V, --version`         | Print CLI version                                  |
@@ -58,20 +58,20 @@ create-devkit [project-name] [options]
 ## Common Examples
 
 ```bash
-# MERN (default: js)
+# MERN (base)
 npx create-devkit my-mern --template mern
 
-# MERN TypeScript
-npx create-devkit my-mern-ts --template mern --lang ts
+# MERN TypeScript + Tailwind
+npx create-devkit my-mern-ts --template mern-ts-tw
 
-# FastAPI + React TypeScript frontend
-npx create-devkit my-fastapi --template fastapi-react --lang ts
+# FastAPI + React (TypeScript) base
+npx create-devkit my-fastapi --template fastapi-react-ts
 
 # Next.js + Prisma (TS-only)
-npx create-devkit my-next --template nextjs-prisma
+npx create-devkit my-next --template nextjs-prisma-ts
 
 # Skip git and install prompts (CI/script friendly)
-npx create-devkit my-app --template mern --no-git --no-install
+npx create-devkit my-app --template angular-node-tw --no-git --no-install
 ```
 
 ## What create-devkit handles

@@ -1,0 +1,14 @@
+{
+  "name": "{{PROJECT_NAME}}",
+  "private": true,
+  "version": "0.0.0",
+  "scripts": {
+    "setup": "npm install --prefix frontend && npm install --prefix server",
+    "dev": "concurrently -n frontend,server -c yellow,green \"npm run start --prefix frontend\" \"npm run dev --prefix server\"",
+    "dev:frontend": "npm run start --prefix frontend",
+    "dev:server": "npm run dev --prefix server"
+  },
+  "devDependencies": {
+    "concurrently": "^9.0.1"
+  }
+}

@@ -3,131 +3,154 @@ import { fileURLToPath } from "url";
 import path from "path";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const TEMPLATES_DIR = path.join(__dirname, "../templates");
-
-function normalizeLanguage(language) {
-  if (!language) return undefined;
-  const value = String(language).trim().toLowerCase();
-  if (value === "javascript") return "js";
-  if (value === "typescript") return "ts";
-  return value;
-}
+const T = path.join(__dirname, "../templates");
 
 export const TEMPLATES = {
+  // MERN
   mern: {
     label: "MERN Stack",
-    defaultLanguage: "js",
-    variants: {
-      js: path.join(TEMPLATES_DIR, "mern"),
-      ts: path.join(TEMPLATES_DIR, "mern-ts"),
-    },
+    dir: path.join(T, "mern"),
     postSteps: [
-      "npm install",
-      "npm run setup",
+      "cd client && npm install",
+      "cd ../server && npm install",
       "cp server/.env.example server/.env",
-      "npm run dev",
     ],
   },
+  "mern-tw": {
+    label: "MERN Stack + Tailwind",
+    dir: path.join(T, "mern-tw"),
+    postSteps: [
+      "cd client && npm install",
+      "cd ../server && npm install",
+      "cp server/.env.example server/.env",
+    ],
+  },
+  "mern-ts": {
+    label: "MERN Stack (TypeScript)",
+    dir: path.join(T, "mern-ts"),
+    postSteps: [
+      "cd client && npm install",
+      "cd ../server && npm install",
+      "cp server/.env.example server/.env",
+    ],
+  },
+  "mern-ts-tw": {
+    label: "MERN Stack (TypeScript + Tailwind)",
+    dir: path.join(T, "mern-ts-tw"),
+    postSteps: [
+      "cd client && npm install",
+      "cd ../server && npm install",
+      "cp server/.env.example server/.env",
+    ],
+  },
+
+  // FastAPI + React
   "fastapi-react": {
     label: "FastAPI + React",
-    defaultLanguage: "js",
-    variants: {
-      js: path.join(TEMPLATES_DIR, "fastapi-react"),
-      ts: path.join(TEMPLATES_DIR, "fastapi-react-ts"),
-    },
+    dir: path.join(T, "fastapi-react"),
     postSteps: [
-      "python -m venv backend/venv",
-      "source backend/venv/bin/activate  # Windows: backend\\venv\\Scripts\\activate",
-      "npm install",
-      "npm run setup",
+      "cd frontend && npm install",
+      "cd ../backend && python -m venv venv && pip install -r requirements.txt",
       "cp backend/.env.example backend/.env",
-      "npm run dev",
     ],
   },
-  "nextjs-prisma": {
-    label: "Next.js + Prisma",
-    defaultLanguage: "ts",
-    variants: {
-      ts: path.join(TEMPLATES_DIR, "nextjs-prisma-ts"),
-    },
-    postSteps: ["npm install", "npx prisma generate", "cp .env.example .env"],
+  "fastapi-react-tw": {
+    label: "FastAPI + React + Tailwind",
+    dir: path.join(T, "fastapi-react-tw"),
+    postSteps: [
+      "cd frontend && npm install",
+      "cd ../backend && python -m venv venv && pip install -r requirements.txt",
+      "cp backend/.env.example backend/.env",
+    ],
   },
+  "fastapi-react-ts": {
+    label: "FastAPI + React (TypeScript)",
+    dir: path.join(T, "fastapi-react-ts"),
+    postSteps: [
+      "cd frontend && npm install",
+      "cd ../backend && python -m venv venv && pip install -r requirements.txt",
+      "cp backend/.env.example backend/.env",
+    ],
+  },
+  "fastapi-react-ts-tw": {
+    label: "FastAPI + React (TypeScript + Tailwind)",
+    dir: path.join(T, "fastapi-react-ts-tw"),
+    postSteps: [
+      "cd frontend && npm install",
+      "cd ../backend && python -m venv venv && pip install -r requirements.txt",
+      "cp backend/.env.example backend/.env",
+    ],
+  },
+
+  // Next.js + Prisma
+  // Tailwind is already on by default - no -tw variant
+  "nextjs-prisma-ts": {
+    label: "Next.js + Prisma (TypeScript)",
+    dir: path.join(T, "nextjs-prisma-ts"),
+    postSteps: ["npm install", "cp .env.example .env", "npx prisma generate"],
+  },
+
+  // Angular + Node
   "angular-node": {
     label: "Angular + Node.js",
-    defaultLanguage: "ts",
-    variants: {
-      ts: path.join(TEMPLATES_DIR, "angular-node"),
-    },
-    postSteps: ["npm install", "npm run setup", "npm run dev"],
+    dir: path.join(T, "angular-node"),
+    postSteps: [
+      "cd frontend && npm install",
+      "cd ../server && npm install",
+      "cp server/.env.example server/.env",
+    ],
+  },
+  "angular-node-tw": {
+    label: "Angular + Node.js + Tailwind",
+    dir: path.join(T, "angular-node-tw"),
+    postSteps: [
+      "cd frontend && npm install",
+      "cd ../server && npm install",
+      "cp server/.env.example server/.env",
+    ],
   },
 };
 
 /**
- * Retrieves a template by key and language variant.
- * @param {string} name
- * @param {string} [language]
- * @returns {typeof TEMPLATES[string] & { language: string, dir: string }}
+ * Retrieves a template by key.
+ *
+ * @param {string} key - produced by resolveTemplateKey()
+ * @returns {typeof TEMPLATES[string]}
  */
-export function getTemplate(name, language) {
-  const t = TEMPLATES[name];
+export function getTemplate(key) {
+  const t = TEMPLATES[key];
   if (!t) {
     const valid = Object.keys(TEMPLATES).join(", ");
-    throw new Error(`Unknown template "${name}". Valid options: ${valid}`);
+    throw new Error(`No template found for key "${key}". Valid keys: ${valid}`);
   }
-
-  const resolvedLanguage =
-    normalizeLanguage(language) || t.defaultLanguage || "js";
-  const dir = t.variants?.[resolvedLanguage];
-
-  if (!dir) {
-    const supported = Object.keys(t.variants || {}).join(", ");
-    throw new Error(
-      `Template "${name}" does not support language "${resolvedLanguage}". Valid languages: ${supported}`,
-    );
-  }
-
-  return {
-    ...t,
-    language: resolvedLanguage,
-    dir,
-  };
+  return t;
 }
 
 /**
- * Returns the supported language variants for a template.
- * @param {string} name
- * @returns {string[]}
+ * Returns the stack choices shown in the wizard menu.
+ * These are the base stack keys - the Tailwind flag is asked separately.
+ *
+ * @returns {{ name: string, value: string }[]}
  */
-export function getTemplateLanguages(name) {
-  const t = TEMPLATES[name];
-  if (!t) {
-    const valid = Object.keys(TEMPLATES).join(", ");
-    throw new Error(`Unknown template "${name}". Valid options: ${valid}`);
-  }
-  return Object.keys(t.variants || {});
-}
-
-/**
- * Returns the default language variant for a template.
- * @param {string} name
- * @returns {string}
- */
-export function getDefaultTemplateLanguage(name) {
-  const t = TEMPLATES[name];
-  if (!t) {
-    const valid = Object.keys(TEMPLATES).join(", ");
-    throw new Error(`Unknown template "${name}". Valid options: ${valid}`);
-  }
-  return t.defaultLanguage || getTemplateLanguages(name)[0] || "js";
-}
-
-/**
- * Returns a list of all available templates with their keys and labels.
- * @returns {{ key: string, label: string }[]}
- */
-export function listTemplates() {
-  return Object.entries(TEMPLATES).map(([key, val]) => ({
-    key,
-    label: val.label,
-  }));
+export function listStacks() {
+  return [
+    {
+      name: "MERN                — MongoDB · Express · React · Node",
+      value: "mern",
+    },
+    {
+      name: "MERN (TypeScript)   — MongoDB · Express · React · Node",
+      value: "mern-ts",
+    },
+    { name: "FastAPI + React", value: "fastapi-react" },
+    {
+      name: "FastAPI + React     (TypeScript)",
+      value: "fastapi-react-ts",
+    },
+    {
+      name: "Next.js + Prisma    (TypeScript · Tailwind included)",
+      value: "nextjs-prisma-ts",
+    },
+    { name: "Angular + Node.js", value: "angular-node" },
+  ];
 }

@@ -3,19 +3,23 @@ import fs from "fs-extra";
 import path from "path";
 import ora from "ora";
 import chalk from "chalk";
-import { getTemplate } from "./registry.js";
 import { runPostInstall } from "./postinstall.js";
 
 /**
  * Main scaffold function. Copies a template to the target directory,
  * replaces {{PROJECT_NAME}} tokens, and renames _gitignore → .gitignore.
  *
- * @param {{ projectName: string, template: string, language?: string, initGit: boolean, installDeps: boolean }} config
+ * @param {{
+ *   projectName: string,
+ *   templateKey: string,
+ *   tmpl: object,
+ *   initGit: boolean,
+ *   installDeps: boolean
+ * }} config
  */
 export async function scaffold(config) {
-  const { projectName, template, language, initGit, installDeps } = config;
+  const { projectName, tmpl, initGit, installDeps } = config;
   const target = path.resolve(process.cwd(), projectName);
-  const tmpl = getTemplate(template, language);
 
   if (await fs.pathExists(target)) {
     console.error(
