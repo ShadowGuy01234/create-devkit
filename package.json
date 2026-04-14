@@ -1,6 +1,6 @@
 {
   "name": "create-devkit",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "description": "Scaffold full-stack projects interactively via npx",
   "type": "module",
   "bin": {
