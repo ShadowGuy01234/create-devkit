@@ -7,10 +7,22 @@ import { Component } from "@angular/core";
   imports: [NgClass, NgFor],
   template: `
     <main
-      class="min-h-screen bg-[radial-gradient(circle_at_15%_-10%,rgba(56,189,248,0.2),transparent_46%),radial-gradient(circle_at_85%_0%,rgba(34,197,94,0.14),transparent_42%),#050505] text-[#ededed]"
+      class="relative min-h-screen overflow-hidden bg-[#050505] text-[#ededed]"
     >
       <div
-        class="mx-auto grid w-full max-w-6xl gap-4 px-4 py-6 md:px-8 md:py-10"
+        aria-hidden="true"
+        class="pointer-events-none absolute inset-0 overflow-hidden"
+      >
+        <div
+          class="absolute -top-36 left-0 h-80 w-80 rounded-full bg-sky-400/20 blur-3xl"
+        ></div>
+        <div
+          class="absolute -top-28 right-0 h-72 w-72 rounded-full bg-emerald-400/15 blur-3xl"
+        ></div>
+      </div>
+
+      <div
+        class="relative mx-auto grid w-full max-w-6xl gap-4 px-4 py-6 md:px-8 md:py-10"
       >
         <header
           class="rounded-xl border border-white/10 bg-[#0b0b0d] p-5 shadow-[0_24px_60px_rgba(0,0,0,0.45),inset_0_1px_0_rgba(255,255,255,0.04)] md:p-8"

@@ -1,109 +1,90 @@
+<div align="center">
+
+<img src=".github/logo.png" alt="create-devkit" width="390" />
+
 # create-devkit
 
-<p align="center">
-	<img src="./assets/logo.png" alt="create-devkit logo" width="500" />
-</p>
+**Scaffold a production-ready full-stack project in seconds.**
 
-Scaffold full-stack starter projects in seconds via `npx`.
+[![npm version](https://img.shields.io/npm/v/create-devkit?color=646cff&labelColor=1a1a1a)](https://www.npmjs.com/package/create-devkit)
+[![npm downloads](https://img.shields.io/npm/dm/create-devkit?color=646cff&labelColor=1a1a1a)](https://www.npmjs.com/package/create-devkit)
+[![license](https://img.shields.io/npm/l/create-devkit?color=646cff&labelColor=1a1a1a)](./package.json)
+[![node](https://img.shields.io/node/v/create-devkit?color=646cff&labelColor=1a1a1a)](https://nodejs.org)
 
-`create-devkit` generates opinionated, ready-to-run project structures for popular frontend and full-stack combinations, with optional Tailwind variants and post-setup guidance.
+[Getting Started](#getting-started) · [Templates](#templates) · [Options](#options) · [Contributing](#contributing)
 
-## Why create-devkit
+</div>
 
-- Interactive onboarding for new projects with sensible defaults.
-- Non-interactive flags for automation and quick bootstrap workflows.
-- Multiple stack templates with consistent token replacement and `.gitignore` handling.
-- Optional git initialization and dependency installation prompts.
+---
 
-## Stack Support
+## Getting Started
 
-| Template key       | Description                             | Tailwind                         |
-| ------------------ | --------------------------------------- | -------------------------------- |
-| `mern`             | MongoDB + Express + React + Node        | Optional (`mern-tw`)             |
-| `mern-ts`          | MERN (TypeScript)                       | Optional (`mern-ts-tw`)          |
-| `fastapi-react`    | Python FastAPI backend + React frontend | Optional (`fastapi-react-tw`)    |
-| `fastapi-react-ts` | FastAPI + React (TypeScript frontend)   | Optional (`fastapi-react-ts-tw`) |
-| `nextjs-prisma-ts` | Next.js App Router + Prisma             | Included by default              |
-| `angular-node`     | Angular frontend + Express backend      | Optional (`angular-node-tw`)     |
-
-### Tailwind prompt behavior
-
-- The wizard asks `Add Tailwind CSS?` for `mern`, `mern-ts`, `fastapi-react`, `fastapi-react-ts`, and `angular-node`.
-- The wizard skips that prompt for `nextjs-prisma-ts` because Tailwind is already included.
-
-## Quick Start
-
-### Interactive mode
+No installation required. Run it directly with `npx`:
 
 ```bash
-npx create-devkit
+npx create-devkit@latest
 ```
 
-### Non-interactive mode
+Or pass a project name to skip the first prompt:
 
 ```bash
-npx create-devkit my-app --template mern-ts-tw --no-git --no-install
+npx create-devkit@latest my-app
 ```
 
-## CLI Usage
+The interactive wizard will guide you through the rest.
+
+---
+
+## Templates
+
+| Stack            | Template Keys                                                                  | Includes                                                               |
+| ---------------- | ------------------------------------------------------------------------------ | ---------------------------------------------------------------------- |
+| MERN             | `mern`, `mern-tw`, `mern-ts`, `mern-ts-tw`                                     | MongoDB + Express + React + Node (JS/TS, optional Tailwind variants)   |
+| FastAPI + React  | `fastapi-react`, `fastapi-react-tw`, `fastapi-react-ts`, `fastapi-react-ts-tw` | FastAPI backend + React frontend (JS/TS, optional Tailwind variants)   |
+| Next.js + Prisma | `nextjs-prisma-ts`                                                             | Next.js App Router + Prisma (TypeScript, Tailwind included by default) |
+| Angular + Node   | `angular-node`, `angular-node-tw`                                              | Angular frontend + Express backend (optional Tailwind variant)         |
+
+---
+
+## Options
+
+All prompts can be bypassed with flags for scripted or CI use.
 
 ```bash
-create-devkit [project-name] [options]
+npx create-devkit@latest <project-name> [options]
 ```
 
-| Option                  | Description                                        |
-| ----------------------- | -------------------------------------------------- |
-| `-t, --template <name>` | Skip the template menu and use a template directly |
-| `--no-git`              | Skip git initialization                            |
-| `--no-install`          | Skip npm install prompt                            |
-| `-V, --version`         | Print CLI version                                  |
-| `-h, --help`            | Show help                                          |
+| Flag                | Description                                   |
+| ------------------- | --------------------------------------------- |
+| `--template <name>` | Skip the menu and use a template key directly |
+| `--no-git`          | Skip git initialisation                       |
+| `--no-install`      | Skip the npm install prompt                   |
 
-## Common Examples
+**Valid `--template` keys:**
 
-```bash
-# MERN (base)
-npx create-devkit my-mern --template mern
+`mern`, `mern-tw`, `mern-ts`, `mern-ts-tw`, `fastapi-react`, `fastapi-react-tw`, `fastapi-react-ts`, `fastapi-react-ts-tw`, `nextjs-prisma-ts`, `angular-node`, `angular-node-tw`
 
-# MERN TypeScript + Tailwind
-npx create-devkit my-mern-ts --template mern-ts-tw
+---
 
-# FastAPI + React (TypeScript) base
-npx create-devkit my-fastapi --template fastapi-react-ts
+## What you get
 
-# Next.js + Prisma (TS-only)
-npx create-devkit my-next --template nextjs-prisma-ts
+Every scaffolded project includes:
 
-# Skip git and install prompts (CI/script friendly)
-npx create-devkit my-app --template angular-node-tw --no-git --no-install
-```
+- A complete stack-specific folder structure (frontend/backend or fullstack app, depending on template)
+- Ready-to-run starter code with stack-appropriate scripts and dev workflow commands
+- `{{PROJECT_NAME}}` token replacement in relevant project metadata files
+- Automatic `_gitignore` to `.gitignore` restoration during scaffold copy
+- Optional git repository initialization
+- Optional dependency installation prompt right after scaffolding
 
-## What create-devkit handles
-
-- Copies template files into your target directory.
-- Replaces `{{PROJECT_NAME}}` tokens in template metadata files.
-- Renames template `_gitignore` files to `.gitignore` in scaffolded output.
-- Optionally initializes git and optionally runs dependency installation.
+---
 
 ## Requirements
 
 - Node.js `>=18.0.0`
-- npm `>=9` recommended
+- npm `>=7.0.0`
 
-## Local Development
-
-```bash
-git clone <your-repo-url>
-cd create-devkit
-npm install
-node bin/index.js --help
-```
-
-## Publishing Checklist
-
-- Confirm `npm publish --dry-run` succeeds.
-- Ensure template folders contain no `node_modules`, lockfiles, or build artifacts.
-- Ensure template `_gitignore` files are present in the package and scaffold to `.gitignore`.
+---
 
 ## Acknowledgements
 
@@ -115,10 +96,14 @@ Next.js template in this project is based on
 [create-next-app](https://github.com/vercel/next.js/tree/canary/packages/create-next-app),
 MIT licensed. Copyright (c) 2024 Vercel, Inc.
 
-Concurrent dev orchestration in split-stack templates uses
-[concurrently](https://github.com/open-cli-tools/concurrently),
-MIT licensed.
+---
+
+## Contributing
+
+Contributions are welcome. Open an issue or pull request if you want to improve templates, docs, or CLI workflows.
+
+---
 
 ## License
 
-MIT
+MIT — see `package.json` for details.
